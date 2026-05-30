@@ -705,16 +705,79 @@ footer{
           <div class="chat-online"><span class="dot-online"></span> En línea ahora</div>
         </div>
       </div>
-      <div class="chat-body">
-        <div class="mb"><div class="mb-b"><div class="ml ml-b">ARQ-RBOT</div><div class="mt">¡Hola! Soy tu asistente. ¿En qué te ayudo hoy?</div></div></div>
-        <div class="mb"><div class="mb-u"><div class="ml ml-u">Cliente</div><div class="mt">Quiero una vivienda inteligente con automatización</div></div></div>
-        <div class="mb"><div class="mb-b"><div class="ml ml-b">ARQ-RBOT</div><div class="mt">¡Perfecto! Combinamos BIM + Smart Home + domótica. ¿Cuántos m² necesitas?</div></div></div>
-        <div class="c-inp">
-          <input type="text" placeholder="Escribe tu consulta..."/>
-          <button onclick="window.open('https://wa.me/51932188436','_blank')">➤</button>
-        </div>
+      <div class="chat-body" id="chatBody">
+        <div class="mb"><div class="mb-b"><div class="ml ml-b">ARQ-RBOT</div><div class="mt">¡Hola! Soy el asistente de ARQ-RBOT. ¿En qué te puedo ayudar hoy?</div></div></div>
+      </div>
+      <div class="c-inp">
+        <input type="text" id="chatInput" placeholder="Escribe tu consulta..." onkeydown="if(event.key==='Enter')sendChat()"/>
+        <button onclick="sendChat()">➤</button>
       </div>
     </div>
+
+<script>
+const GEMINI_KEY = 'AQ.Ab8RN6KFzgYSVSGGTXrVlV3dQgDOdDo9wgpdD8E7Kwx9KZCH1g';
+const chatHistory = [];
+const systemPrompt = `Eres el asistente virtual de ARQ-RBOT, una empresa de arquitectura, robótica y tecnología ubicada en Perú. 
+Tu nombre es "ARQ-RBOT Asistente". Respondes consultas sobre:
+- Diseño arquitectónico, BIM, expedientes técnicos
+- Domótica, viviendas inteligentes, automatización
+- Instalaciones eléctricas, Smart Home
+- Presupuestos y proyectos
+Sé amable, profesional y conciso. Si el cliente quiere contratar o necesita más información, sugiere contactar por WhatsApp al +51932188436.
+Responde siempre en español.`;
+
+const chatLog = [];
+
+async function sendChat() {
+  const input = document.getElementById('chatInput');
+  const body = document.getElementById('chatBody');
+  const msg = input.value.trim();
+  if (!msg) return;
+
+  // Mostrar mensaje del usuario
+  body.innerHTML += `<div class="mb"><div class="mb-u"><div class="ml ml-u">Cliente</div><div class="mt">${msg}</div></div></div>`;
+  input.value = '';
+  body.scrollTop = body.scrollHeight;
+
+  // Guardar en log
+  chatLog.push({ role: 'user', text: msg, time: new Date().toLocaleString() });
+
+  // Mostrar "escribiendo..."
+  const typingId = 'typing-' + Date.now();
+  body.innerHTML += `<div id="${typingId}" class="mb"><div class="mb-b"><div class="ml ml-b">ARQ-RBOT</div><div class="mt">...</div></div></div>`;
+  body.scrollTop = body.scrollHeight;
+
+  try {
+    chatHistory.push({ role: 'user', parts: [{ text: msg }] });
+
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        system_instruction: { parts: [{ text: systemPrompt }] },
+        contents: chatHistory
+      })
+    });
+
+    const data = await res.json();
+    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Lo siento, no pude responder. Contáctanos por WhatsApp.';
+
+    chatHistory.push({ role: 'model', parts: [{ text: reply }] });
+    chatLog.push({ role: 'arqrbot', text: reply, time: new Date().toLocaleString() });
+
+    // Reemplazar "..."
+    document.getElementById(typingId).outerHTML = `<div class="mb"><div class="mb-b"><div class="ml ml-b">ARQ-RBOT</div><div class="mt">${reply}</div></div></div>`;
+
+    // Guardar log en localStorage
+    localStorage.setItem('arqrbot-chat-log', JSON.stringify(chatLog));
+
+  } catch(e) {
+    document.getElementById(typingId).outerHTML = `<div class="mb"><div class="mb-b"><div class="ml ml-b">ARQ-RBOT</div><div class="mt">Error de conexión. Contáctanos por WhatsApp al +51932188436</div></div></div>`;
+  }
+
+  body.scrollTop = body.scrollHeight;
+}
+</script>
   </div>
 </section>
 
