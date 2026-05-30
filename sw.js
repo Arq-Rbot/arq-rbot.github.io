@@ -1,4 +1,4 @@
-const CACHE = 'arqrbot-kwh-v3';
+const CACHE = 'arqrbot-kwh-v4';
 const ASSETS = [
   '/Arq-Rbot/calculadora.html',
   '/Arq-Rbot/icons/icon-192.png',

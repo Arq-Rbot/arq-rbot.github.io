@@ -3,6 +3,7 @@
   "short_name": "Calc kWh",
   "description": "Calculadora de consumo eléctrico en Soles — ARQ-RBOT",
   "start_url": "/Arq-Rbot/calculadora.html",
+  "scope": "/Arq-Rbot/",
   "display": "standalone",
   "background_color": "#0a0a0a",
   "theme_color": "#cc1a00",
