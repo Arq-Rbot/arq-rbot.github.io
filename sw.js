@@ -1,8 +1,8 @@
-const CACHE = 'arqrbot-kwh-v4';
+const CACHE = 'arqrbot-kwh-v5';
 const ASSETS = [
-  '/Arq-Rbot/calculadora.html',
-  '/Arq-Rbot/icons/icon-192.png',
-  '/Arq-Rbot/icons/icon-512.png'
+  '/calculadora.html',
+  '/icons/icon-192.png',
+  '/icons/icon-512.png'
 ];
 
 self.addEventListener('install', e => {
