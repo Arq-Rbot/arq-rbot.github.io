@@ -715,7 +715,7 @@ footer{
     </div>
 
 <script>
-const GEMINI_KEY = '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';
+const GEMINI_KEY = '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';
 const chatHistory = [];
 const systemPrompt = `Eres el asistente virtual de ARQ-RBOT, una empresa de arquitectura, robótica y tecnología ubicada en Perú. 
 Tu nombre es "ARQ-RBOT Asistente". Respondes consultas sobre:
@@ -747,16 +747,14 @@ async function sendChat() {
   try {
     chatHistory.push({ role: 'user', content: msg });
 
-    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${GEMINI_KEY}`,
-        'HTTP-Referer': 'https://arq-rbot-github-io.vercel.app',
-        'X-Title': 'ARQ-RBOT Asistente'
+        'Authorization': `Bearer ${GEMINI_KEY}`
       },
       body: JSON.stringify({
-        model: 'meta-llama/llama-3.1-8b-instruct:free',
+        model: 'llama-3.1-8b-instant',
         messages: [
           { role: 'system', content: systemPrompt },
           ...chatHistory
