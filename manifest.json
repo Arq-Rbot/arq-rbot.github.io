@@ -4,7 +4,7 @@
   "description": "Calculadora de consumo eléctrico en Soles — ARQ-RBOT",
   "start_url": "/calculadora.html",
   "scope": "/",
-  "display": "browser",
+  "display": "standalone",
   "background_color": "#0a0a0a",
   "theme_color": "#cc1a00",
   "orientation": "portrait",
