@@ -292,7 +292,7 @@
   /* INSTALL BUTTON */
   .install-banner {
     margin: 0 1.2rem 1rem;
-    display: none;
+    display: block;
   }
   .install-btn {
     width: 100%;
@@ -434,7 +434,7 @@
 
   <div class="footer">
   © 2025 <span>ARQ-RBOT</span> · Todos los derechos reservados<br><br>
-  <a href="https://arq-rbot.netlify.app/" target="_blank" style="
+  <a href="https://arq-rbot.github.io/Arq-Rbot/" target="_blank" style="
     color:#ff3a1a;
     text-decoration:none;
     font-family:'Rajdhani',sans-serif;
@@ -453,7 +453,7 @@
   "
   onmouseover="this.style.background='rgba(204,26,0,0.22)';this.style.boxShadow='0 0 18px rgba(204,26,0,0.5)'"
   onmouseout="this.style.background='rgba(204,26,0,0.08)';this.style.boxShadow='0 0 10px rgba(204,26,0,0.2)'"
-  >🌐 arq-rbot.netlify.app</a>
+  >🌐 arq-rbot.github.io/Arq-Rbot</a>
 </div>
 
 </div>
@@ -569,26 +569,26 @@ let deferredPrompt = null;
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  document.getElementById('installBanner').style.display = 'block';
 });
 
 async function installApp() {
-  if (!deferredPrompt) {
-    // Fallback: show manual instructions
-    alert('Para instalar:\n1. Toca el menú del navegador (⋮)\n2. Selecciona "Agregar a pantalla de inicio"\n3. Toca "Instalar" ✅');
-    return;
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      document.getElementById('installBtn').style.display = 'none';
+      document.getElementById('installedMsg').style.display = 'block';
+    }
+    deferredPrompt = null;
+  } else {
+    // Fallback manual
+    alert('Para instalar:\n1. Toca el menú ⋮ del navegador\n2. Selecciona "Agregar a pantalla de inicio"\n3. Toca "Instalar" ✅');
   }
-  deferredPrompt.prompt();
-  const { outcome } = await deferredPrompt.userChoice;
-  if (outcome === 'accepted') {
-    document.getElementById('installBtn').style.display = 'none';
-    document.getElementById('installedMsg').style.display = 'block';
-  }
-  deferredPrompt = null;
 }
 
 window.addEventListener('appinstalled', () => {
-  document.getElementById('installBanner').style.display = 'none';
+  document.getElementById('installBtn').style.display = 'none';
+  document.getElementById('installedMsg').style.display = 'block';
 });
 </script>
 
