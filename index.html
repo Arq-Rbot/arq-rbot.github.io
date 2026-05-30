@@ -715,7 +715,7 @@ footer{
     </div>
 
 <script>
-const GEMINI_KEY = 'AIzaSyAjeCjyVZM8ADUxI7k62GPbJk6CBRO76E4';
+const GEMINI_KEY = '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';
 const chatHistory = [];
 const systemPrompt = `Eres el asistente virtual de ARQ-RBOT, una empresa de arquitectura, robótica y tecnología ubicada en Perú. 
 Tu nombre es "ARQ-RBOT Asistente". Respondes consultas sobre:
@@ -734,41 +734,43 @@ async function sendChat() {
   const msg = input.value.trim();
   if (!msg) return;
 
-  // Mostrar mensaje del usuario
   body.innerHTML += `<div class="mb"><div class="mb-u"><div class="ml ml-u">Cliente</div><div class="mt">${msg}</div></div></div>`;
   input.value = '';
   body.scrollTop = body.scrollHeight;
 
-  // Guardar en log
   chatLog.push({ role: 'user', text: msg, time: new Date().toLocaleString() });
 
-  // Mostrar "escribiendo..."
   const typingId = 'typing-' + Date.now();
   body.innerHTML += `<div id="${typingId}" class="mb"><div class="mb-b"><div class="ml ml-b">ARQ-RBOT</div><div class="mt">...</div></div></div>`;
   body.scrollTop = body.scrollHeight;
 
   try {
-    chatHistory.push({ role: 'user', parts: [{ text: msg }] });
+    chatHistory.push({ role: 'user', content: msg });
 
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`, {
+    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${GEMINI_KEY}`,
+        'HTTP-Referer': 'https://arq-rbot-github-io.vercel.app',
+        'X-Title': 'ARQ-RBOT Asistente'
+      },
       body: JSON.stringify({
-        system_instruction: { parts: [{ text: systemPrompt }] },
-        contents: chatHistory
+        model: 'meta-llama/llama-3.1-8b-instruct:free',
+        messages: [
+          { role: 'system', content: systemPrompt },
+          ...chatHistory
+        ]
       })
     });
 
     const data = await res.json();
-    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Lo siento, no pude responder. Contáctanos por WhatsApp.';
+    const reply = data.choices?.[0]?.message?.content || 'Lo siento, no pude responder. Contáctanos por WhatsApp.';
 
-    chatHistory.push({ role: 'model', parts: [{ text: reply }] });
+    chatHistory.push({ role: 'assistant', content: reply });
     chatLog.push({ role: 'arqrbot', text: reply, time: new Date().toLocaleString() });
 
-    // Reemplazar "..."
     document.getElementById(typingId).outerHTML = `<div class="mb"><div class="mb-b"><div class="ml ml-b">ARQ-RBOT</div><div class="mt">${reply}</div></div></div>`;
-
-    // Guardar log en localStorage
     localStorage.setItem('arqrbot-chat-log', JSON.stringify(chatLog));
 
   } catch(e) {
