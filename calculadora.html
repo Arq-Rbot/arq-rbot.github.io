@@ -566,7 +566,12 @@ if('serviceWorker' in navigator){
 <script>
 let deferredPrompt = null;
 
-// Ocultar si ya fue instalada
+// Ocultar si ya está corriendo como app instalada
+if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+  document.getElementById('installBanner').style.display = 'none';
+}
+
+// Ocultar si ya fue instalada previamente
 if (localStorage.getItem('pwa-installed') === 'true') {
   document.getElementById('installBanner').style.display = 'none';
 }
