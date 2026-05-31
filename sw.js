@@ -26,3 +26,5 @@ self.addEventListener('fetch', e => {
     caches.match(e.request).then(cached => cached || fetch(e.request))
   );
 });
+
+self.addEventListener('install',e=>e.waitUntil(caches.open('arq-rbot-v2').then(c=>c.addAll(['./','index.html','calculadora.html']))));
