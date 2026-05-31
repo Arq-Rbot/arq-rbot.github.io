@@ -418,21 +418,21 @@ footer{
 .footer-links a:hover{color:var(--rojo);}
 
 /* CONTADOR */
-.contador{background:var(--rojo);padding:60px 48px;}
+.contador{background:var(--rojo);padding:40px 48px;}
 .contador-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1000px;margin:0 auto;text-align:center;}
 .contador-item{}
-.contador-num{font-size:52px;font-weight:900;color:#fff;font-family:'Barlow Condensed',sans-serif;line-height:1;}
-.contador-plus{color:#ffcccc;font-size:36px;}
-.contador-label{font-size:12px;color:rgba(255,255,255,.8);letter-spacing:2px;text-transform:uppercase;margin-top:8px;}
-@media(max-width:768px){.contador-grid{grid-template-columns:repeat(2,1fr);}.contador{padding:50px 24px;}}
+.contador-num{font-size:36px;font-weight:900;color:#fff;font-family:'Barlow Condensed',sans-serif;line-height:1;}
+.contador-plus{color:#ffcccc;font-size:24px;}
+.contador-label{font-size:11px;color:rgba(255,255,255,.8);letter-spacing:1.5px;text-transform:uppercase;margin-top:6px;}
+@media(max-width:768px){.contador-grid{grid-template-columns:repeat(2,1fr);}.contador{padding:30px 24px;}}
 
 /* FLOAT CALL */
 .float-call{
-  position:fixed;bottom:90px;right:24px;
-  width:56px;height:56px;border-radius:50%;
-  background:var(--rojo);display:flex;align-items:center;justify-content:center;
-  font-size:26px;color:#fff;cursor:pointer;z-index:9999;
-  box-shadow:0 4px 24px rgba(204,34,0,.4);
+  position:fixed;bottom:160px;right:24px;
+  width:50px;height:50px;border-radius:50%;
+  background:#1a73e8;display:flex;align-items:center;justify-content:center;
+  font-size:22px;color:#fff;cursor:pointer;z-index:9999;
+  box-shadow:0 4px 20px rgba(26,115,232,.5);
   text-decoration:none;transition:transform .2s;
 }
 .float-call:hover{transform:scale(1.1);}
@@ -440,15 +440,15 @@ footer{
 /* FLOAT WSP */
 .float-wsp{
   position:fixed;bottom:24px;right:24px;
-  width:56px;height:56px;border-radius:50%;
+  width:50px;height:50px;border-radius:50%;
   background:#25D366;display:flex;align-items:center;justify-content:center;
-  font-size:28px;color:#fff;cursor:pointer;z-index:9999;
+  font-size:26px;color:#fff;cursor:pointer;z-index:9999;
   box-shadow:0 4px 24px rgba(37,211,102,.35);
   text-decoration:none;transition:transform .2s;
 }
 .float-wsp:hover{transform:scale(1.1);}
 .float-label{
-  position:fixed;bottom:32px;right:90px;
+  position:fixed;bottom:32px;right:84px;
   background:#25D366;color:#fff;font-size:12px;
   padding:7px 14px;border-radius:6px;white-space:nowrap;z-index:9999;
   font-weight:600;
@@ -1080,8 +1080,8 @@ async function sendChat() {
       <div class="contador-label">Clientes satisfechos</div>
     </div>
     <div class="contador-item">
-      <div class="contador-num"><span class="count" data-target="8">0</span><span class="contador-plus">+</span></div>
-      <div class="contador-label">Servicios especializados</div>
+      <div class="contador-num" id="visitasNum">-</div>
+      <div class="contador-label">Visitas a la página</div>
     </div>
   </div>
 </section>
@@ -1147,10 +1147,10 @@ async function sendChat() {
     </div>
     <div class="ct-form">
       <div class="ct-form-title">✉️ Envíanos un mensaje</div>
-      <div class="form-row"><label>Nombre completo</label><input type="text" placeholder="Tu nombre"/></div>
+      <div class="form-row"><label>Nombre completo</label><input type="text" id="ct-nombre" placeholder="Tu nombre"/></div>
       <div class="form-row">
         <label>Tipo de servicio</label>
-        <select>
+        <select id="ct-servicio">
           <option>Diseño Arquitectónico</option>
           <option>Modelado BIM</option>
           <option>Instalaciones Eléctricas</option>
@@ -1161,11 +1161,52 @@ async function sendChat() {
           <option>Otro servicio</option>
         </select>
       </div>
-      <div class="form-row"><label>Mensaje</label><textarea placeholder="Cuéntanos sobre tu proyecto..."></textarea></div>
-      <a class="form-submit" href="https://wa.me/51932188436" target="_blank">💬 Enviar por WhatsApp</a>
+      <div class="form-row"><label>Mensaje</label><textarea id="ct-mensaje" placeholder="Cuéntanos sobre tu proyecto..."></textarea></div>
+      <button class="form-submit" onclick="enviarFormulario()">💬 Enviar por WhatsApp + Email</button>
+      <div id="ct-status" style="margin-top:10px;font-size:13px;text-align:center;"></div>
     </div>
   </div>
 </section>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+emailjs.init('Ix5PV_uiXz_2fGXWw');
+
+function enviarFormulario() {
+  const nombre = document.getElementById('ct-nombre').value.trim();
+  const servicio = document.getElementById('ct-servicio').value;
+  const mensaje = document.getElementById('ct-mensaje').value.trim();
+  const status = document.getElementById('ct-status');
+
+  if (!nombre || !mensaje) {
+    status.style.color = '#ff4444';
+    status.textContent = '⚠️ Por favor completa tu nombre y mensaje.';
+    return;
+  }
+
+  status.style.color = '#aaa';
+  status.textContent = 'Enviando...';
+
+  // Enviar email
+  emailjs.send('service_ryxbesc', 'template_6kun27q', {
+    name: nombre,
+    nombre: nombre,
+    title: servicio,
+    mensaje: mensaje,
+    email: 'arq.rbot@gmail.com'
+  }).then(() => {
+    status.style.color = '#25D366';
+    status.textContent = '✅ Mensaje enviado al correo correctamente!';
+  }).catch(() => {
+    status.style.color = '#ff4444';
+    status.textContent = '⚠️ Error al enviar email. Intenta por WhatsApp.';
+  });
+
+  // Abrir WhatsApp con el mensaje
+  const texto = `Hola ARQ-RBOT! Soy *${nombre}*.\n\n*Servicio:* ${servicio}\n\n*Mensaje:* ${mensaje}`;
+  window.open(`https://wa.me/51932188436?text=${encodeURIComponent(texto)}`, '_blank');
+}
+</script>
 
 <!-- FOOTER -->
 <footer>
@@ -1334,9 +1375,34 @@ document.addEventListener('keydown', function(e){
 </a>
 
 <!-- BOTÓN LLAMADA FLOTANTE -->
-<a class="float-call" href="tel:+51932188436" title="Llamar ahora">📞</a>
+<a class="float-call" href="tel:+51932188436" title="Llamar ahora">📱</a>
 
 <script>
+// Contador de visitas real con CountAPI
+fetch('https://api.countapi.xyz/hit/arq-rbot-vercel/visitas')
+  .then(res => res.json())
+  .then(data => {
+    const el = document.getElementById('visitasNum');
+    if (el && data.value) {
+      let current = 0;
+      const target = data.value;
+      const step = Math.max(1, Math.floor(target / 60));
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) {
+          el.textContent = target.toLocaleString();
+          clearInterval(timer);
+        } else {
+          el.textContent = current.toLocaleString();
+        }
+      }, 16);
+    }
+  })
+  .catch(() => {
+    const el = document.getElementById('visitasNum');
+    if (el) el.textContent = '—';
+  });
+
 // Contador animado
 const counters = document.querySelectorAll('.count');
 const observer = new IntersectionObserver((entries) => {
