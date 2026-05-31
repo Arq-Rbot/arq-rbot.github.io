@@ -199,6 +199,21 @@ section{padding:80px 48px;}
 .sec-sub{font-size:15px;color:var(--texto2);line-height:1.6;}
 .sec-divider{width:48px;height:3px;background:var(--rojo);margin:18px 0 36px;}
 
+/* PORTAFOLIO */
+.portafolio{background:var(--negro2);padding:80px 48px;position:relative;}
+.port-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto;}
+.port-card{border-radius:12px;overflow:hidden;cursor:pointer;}
+.port-img-wrap{position:relative;overflow:hidden;aspect-ratio:4/3;}
+.port-img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
+.port-card:hover .port-img{transform:scale(1.08);}
+.port-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.9),transparent);padding:20px 16px 16px;transform:translateY(30px);opacity:0;transition:all .3s ease;}
+.port-card:hover .port-overlay{transform:translateY(0);opacity:1;}
+.port-tag{font-size:10px;color:var(--rojo);letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:4px;}
+.port-title{font-size:15px;color:#fff;font-weight:700;margin-bottom:4px;}
+.port-sub{font-size:12px;color:#aaa;}
+@media(max-width:768px){.port-grid{grid-template-columns:repeat(2,1fr);}.portafolio{padding:60px 20px;}}
+@media(max-width:480px){.port-grid{grid-template-columns:1fr;}}
+
 /* SERVICIOS */
 .servicios{background:var(--blanco);position:relative;overflow:hidden;}
 .srv-wm{
@@ -662,6 +677,7 @@ footer{
   <div class="nav-menu">
     <a href="#inicio">Inicio</a>
     <a href="#servicios">Servicios</a>
+    <a href="#portafolio">Portafolio</a>
     <a href="#equipo">Equipo</a>
     <a href="#tienda">Tienda</a>
     <a href="#contacto">Contacto</a>
@@ -951,6 +967,77 @@ async function sendChat() {
             <div class="prod-precio">Pronto</div>
             <button class="prod-dl" style="opacity:.5;cursor:default;">⏳ Próximamente</button>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- PORTAFOLIO -->
+<section class="portafolio" id="portafolio">
+  <div class="sec-tag">Nuestro trabajo</div>
+  <div class="sec-title">Proyectos realizados</div>
+  <div class="sec-sub">Diseño, tecnología y construcción en cada proyecto</div>
+  <div class="sec-divider"></div>
+  <div class="port-grid">
+    <div class="port-card">
+      <div class="port-img-wrap">
+        <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=600&q=80" alt="Vivienda moderna" class="port-img"/>
+        <div class="port-overlay">
+          <div class="port-tag">Vivienda</div>
+          <div class="port-title">Casa Moderna con Domótica</div>
+          <div class="port-sub">BIM + Smart Home + Automatización</div>
+        </div>
+      </div>
+    </div>
+    <div class="port-card">
+      <div class="port-img-wrap">
+        <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80" alt="Edificio comercial" class="port-img"/>
+        <div class="port-overlay">
+          <div class="port-tag">Comercial</div>
+          <div class="port-title">Edificio Inteligente</div>
+          <div class="port-sub">Instalaciones eléctricas + BIM</div>
+        </div>
+      </div>
+    </div>
+    <div class="port-card">
+      <div class="port-img-wrap">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Interior moderno" class="port-img"/>
+        <div class="port-overlay">
+          <div class="port-tag">Interior</div>
+          <div class="port-title">Diseño Interior Contemporáneo</div>
+          <div class="port-sub">Arquitectura + Iluminación LED</div>
+        </div>
+      </div>
+    </div>
+    <div class="port-card">
+      <div class="port-img-wrap">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Smart home" class="port-img"/>
+        <div class="port-overlay">
+          <div class="port-tag">Smart Home</div>
+          <div class="port-title">Automatización Residencial</div>
+          <div class="port-sub">Control total desde el celular</div>
+        </div>
+      </div>
+    </div>
+    <div class="port-card">
+      <div class="port-img-wrap">
+        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80" alt="Fachada moderna" class="port-img"/>
+        <div class="port-overlay">
+          <div class="port-tag">Vivienda</div>
+          <div class="port-title">Fachada Contemporánea</div>
+          <div class="port-sub">Diseño arquitectónico + Expediente técnico</div>
+        </div>
+      </div>
+    </div>
+    <div class="port-card">
+      <div class="port-img-wrap">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80" alt="Oficina moderna" class="port-img"/>
+        <div class="port-overlay">
+          <div class="port-tag">Oficina</div>
+          <div class="port-title">Oficina Inteligente</div>
+          <div class="port-sub">Smart Building + Instalaciones</div>
         </div>
       </div>
     </div>
