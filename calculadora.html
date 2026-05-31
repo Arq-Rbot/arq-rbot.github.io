@@ -566,12 +566,7 @@ if('serviceWorker' in navigator){
 <script>
 let deferredPrompt = null;
 
-// Ocultar si ya está corriendo como app instalada
-if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
-  document.getElementById('installBanner').style.display = 'none';
-}
-
-// Ocultar si ya fue instalada previamente
+// Ocultar si ya fue instalada
 if (localStorage.getItem('pwa-installed') === 'true') {
   document.getElementById('installBanner').style.display = 'none';
 }
@@ -600,9 +595,6 @@ window.addEventListener('appinstalled', () => {
   localStorage.setItem('pwa-installed', 'true');
 });
 </script>
-
-
-
 
 
 
