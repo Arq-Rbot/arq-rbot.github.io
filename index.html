@@ -29,9 +29,23 @@ html{scroll-behavior:smooth;}
 body{font-family:'Barlow',sans-serif;background:var(--blanco);color:var(--texto);overflow-x:hidden;}
 
 /* ANIMATIONS */
-@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes glowPulse{0%,100%{box-shadow:0 4px 20px rgba(204,34,0,.5),0 0 0 0 rgba(204,34,0,.3)}50%{box-shadow:0 8px 32px rgba(204,34,0,.8),0 0 0 10px rgba(204,34,0,0)}}
+@keyframes wspGlow{0%,100%{box-shadow:0 4px 24px rgba(37,211,102,.4),0 0 0 0 rgba(37,211,102,.2)}50%{box-shadow:0 8px 32px rgba(37,211,102,.7),0 0 0 12px rgba(37,211,102,0)}}
+@keyframes callGlow{0%,100%{box-shadow:0 4px 20px rgba(0,198,167,.5),0 0 0 0 rgba(0,198,167,.2)}50%{box-shadow:0 8px 32px rgba(0,198,167,.8),0 0 0 12px rgba(0,198,167,0)}}
+@keyframes calcGlow{0%,100%{box-shadow:0 4px 20px rgba(204,26,0,.5),0 0 0 0 rgba(204,26,0,.2)}50%{box-shadow:0 8px 32px rgba(204,26,0,.8),0 0 0 12px rgba(204,26,0,0)}}
+
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-left{opacity:0;transform:translateX(-28px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1);}
+.reveal-left.visible{opacity:1;transform:translateX(0);}
+.reveal-pop{opacity:0;transform:scale(.88);transition:opacity .65s cubic-bezier(.34,1.56,.64,1),transform .65s cubic-bezier(.34,1.56,.64,1);}
+.reveal-pop.visible{opacity:1;transform:scale(1);}
+
 .fade-up{animation:fadeUp .8s ease forwards;}
 .fade-up-2{animation:fadeUp .8s .2s ease both;}
 .fade-up-3{animation:fadeUp .8s .4s ease both;}
@@ -200,18 +214,28 @@ section{padding:80px 48px;}
 .sec-divider{width:48px;height:3px;background:var(--rojo);margin:18px 0 36px;}
 
 /* PORTAFOLIO */
-.portafolio{background:var(--negro2);padding:80px 48px;position:relative;}
-.port-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto;}
-.port-card{border-radius:12px;overflow:hidden;cursor:pointer;}
+.portafolio{background:var(--negro2);padding:96px 48px;position:relative;}
+.port-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1160px;margin:0 auto;}
+.port-card{
+  border-radius:14px;overflow:hidden;cursor:pointer;
+  border:1px solid rgba(204,34,0,.18);
+  box-shadow:0 2px 20px rgba(0,0,0,.5);
+  transition:border-color .3s, box-shadow .3s, transform .35s cubic-bezier(.16,1,.3,1);
+}
+.port-card:hover{
+  border-color:rgba(204,34,0,.6);
+  box-shadow:0 8px 40px rgba(204,34,0,.2),0 2px 12px rgba(0,0,0,.6);
+  transform:translateY(-6px) scale(1.02);
+}
 .port-img-wrap{position:relative;overflow:hidden;aspect-ratio:4/3;}
-.port-img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
-.port-card:hover .port-img{transform:scale(1.08);}
-.port-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.9),transparent);padding:20px 16px 16px;transform:translateY(30px);opacity:0;transition:all .3s ease;}
+.port-img{width:100%;height:100%;object-fit:cover;transition:transform .45s ease;}
+.port-card:hover .port-img{transform:scale(1.1);}
+.port-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.92),transparent);padding:22px 18px 18px;transform:translateY(30px);opacity:0;transition:all .35s ease;}
 .port-card:hover .port-overlay{transform:translateY(0);opacity:1;}
 .port-tag{font-size:10px;color:var(--rojo);letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:4px;}
 .port-title{font-size:15px;color:#fff;font-weight:700;margin-bottom:4px;}
 .port-sub{font-size:12px;color:#aaa;}
-@media(max-width:768px){.port-grid{grid-template-columns:repeat(2,1fr);}.portafolio{padding:60px 20px;}}
+@media(max-width:768px){.port-grid{grid-template-columns:repeat(2,1fr);}.portafolio{padding:64px 20px;}}
 @media(max-width:480px){.port-grid{grid-template-columns:1fr;}}
 
 /* SERVICIOS */
@@ -349,7 +373,99 @@ section{padding:80px 48px;}
 .eq-tags{display:flex;flex-wrap:wrap;gap:6px;}
 .eq-tag{background:#fff;border:.5px solid var(--gris2);color:var(--texto2);font-size:12px;padding:4px 10px;border-radius:4px;}
 
-/* CONTACTO */
+/* ── SISTEMA DE COMENTARIOS ────────────────────────────────────── */
+.comentarios-section{
+  margin-top:24px;
+  background:#0d0d0d;border:1px solid #1e1e1e;border-radius:12px;
+  overflow:hidden;
+}
+.com-header{
+  padding:18px 22px;border-bottom:1px solid #1a1a1a;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.com-title{color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;}
+.com-count{
+  background:rgba(204,34,0,.15);border:1px solid rgba(204,34,0,.3);
+  color:var(--rojo);font-size:11px;font-weight:700;
+  padding:2px 8px;border-radius:10px;
+}
+.com-form{padding:18px 22px;border-bottom:1px solid #131313;}
+.com-form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.com-input{
+  width:100%;background:#161616;border:1px solid #222;
+  border-radius:8px;padding:10px 14px;color:#ddd;font-size:13px;
+  font-family:'Barlow',sans-serif;outline:none;transition:border-color .2s;
+}
+.com-input:focus{border-color:var(--rojo);}
+.com-textarea{
+  width:100%;background:#161616;border:1px solid #222;
+  border-radius:8px;padding:10px 14px;color:#ddd;font-size:13px;
+  font-family:'Barlow',sans-serif;outline:none;resize:none;height:80px;
+  transition:border-color .2s;margin-bottom:10px;
+}
+.com-textarea:focus{border-color:var(--rojo);}
+.com-submit{
+  background:var(--rojo);color:#fff;border:none;
+  padding:10px 22px;border-radius:8px;font-size:13px;font-weight:700;
+  cursor:pointer;transition:background .2s;display:flex;align-items:center;gap:6px;
+}
+.com-submit:hover{background:var(--rojo2);}
+.com-list{max-height:380px;overflow-y:auto;padding:14px 22px;display:flex;flex-direction:column;gap:14px;}
+.com-list::-webkit-scrollbar{width:4px;}
+.com-list::-webkit-scrollbar-track{background:#0d0d0d;}
+.com-list::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px;}
+.com-empty{color:#444;font-size:13px;text-align:center;padding:28px 0;font-style:italic;}
+
+/* Tarjeta de comentario */
+.com-card{
+  background:#111;border:1px solid #1e1e1e;border-radius:10px;
+  padding:14px 16px;transition:border-color .2s;
+}
+.com-card:hover{border-color:#2a2a2a;}
+.com-card-hdr{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.com-avatar{
+  width:34px;height:34px;border-radius:50%;
+  background:linear-gradient(135deg,var(--rojo),#ff5533);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:700;color:#fff;flex-shrink:0;
+  font-family:'Barlow Condensed',sans-serif;
+}
+.com-meta{flex:1;}
+.com-author{color:#fff;font-size:14px;font-weight:600;}
+.com-date{color:#444;font-size:11px;margin-top:1px;}
+.com-text{color:#aaa;font-size:13px;line-height:1.6;}
+
+/* Respuesta del admin */
+.com-reply{
+  margin-top:10px;padding:10px 14px;
+  background:#0a1a0a;border-left:3px solid #25D366;border-radius:0 8px 8px 0;
+}
+.com-reply-label{color:#25D366;font-size:10px;letter-spacing:1.5px;font-weight:700;margin-bottom:4px;text-transform:uppercase;}
+.com-reply-text{color:#8ecf9e;font-size:13px;line-height:1.5;}
+
+/* Panel responder (admin) */
+.com-reply-form{
+  margin-top:10px;display:none;
+}
+.com-reply-form.open{display:block;}
+.com-reply-input{
+  width:100%;background:#0d1a0d;border:1px solid rgba(37,211,102,.2);
+  border-radius:6px;padding:8px 12px;color:#ccc;font-size:12px;
+  font-family:'Barlow',sans-serif;outline:none;resize:none;height:56px;
+  transition:border-color .2s;margin-bottom:6px;
+}
+.com-reply-input:focus{border-color:#25D366;}
+.com-reply-btns{display:flex;gap:6px;}
+.com-reply-send{
+  background:#25D366;color:#fff;border:none;
+  padding:6px 14px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;
+}
+.com-reply-send:hover{background:#1ea855;}
+.com-reply-cancel{
+  background:transparent;color:#555;border:1px solid #2a2a2a;
+  padding:6px 12px;border-radius:6px;font-size:12px;cursor:pointer;
+}
+.com-reply-cancel:hover{color:#888;}
 .contacto{background:var(--negro);}
 .contacto .sec-title{color:#fff;}
 .contacto .sec-sub{color:#888;}
@@ -426,34 +542,74 @@ footer{
 .contador-label{font-size:11px;color:rgba(255,255,255,.8);letter-spacing:1.5px;text-transform:uppercase;margin-top:6px;}
 @media(max-width:768px){.contador-grid{grid-template-columns:repeat(2,1fr);}.contador{padding:20px 24px;}}
 
-/* FLOAT CALL */
-.float-call{
-  position:fixed;bottom:160px;right:24px;
-  width:50px;height:50px;border-radius:50%;
-  background:linear-gradient(135deg,#00c6a7,#1a73e8);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;z-index:9999;
-  box-shadow:0 4px 20px rgba(0,198,167,.5);
-  text-decoration:none;transition:transform .2s;
+/* ── FLOATING DOCK (profesional) ─────────────────────────────── */
+.float-dock{
+  position:fixed;bottom:28px;right:20px;
+  display:flex;flex-direction:column;align-items:flex-end;gap:10px;
+  z-index:9999;
 }
-.float-call:hover{transform:scale(1.1);}
 
-/* FLOAT WSP */
-.float-wsp{
-  position:fixed;bottom:24px;right:24px;
-  width:50px;height:50px;border-radius:50%;
-  background:#25D366;display:flex;align-items:center;justify-content:center;
-  font-size:26px;color:#fff;cursor:pointer;z-index:9999;
-  box-shadow:0 4px 24px rgba(37,211,102,.35);
-  text-decoration:none;transition:transform .2s;
+/* Botón principal toggle */
+.float-toggle{
+  width:56px;height:56px;border-radius:50%;
+  background:linear-gradient(135deg,#CC2200,#ff4422);
+  border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(204,34,0,.5);
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s;
+  animation:wspGlow 2.8s ease-in-out infinite;
+  flex-shrink:0;
 }
-.float-wsp:hover{transform:scale(1.1);}
-.float-label{
-  position:fixed;bottom:32px;right:84px;
-  background:#25D366;color:#fff;font-size:12px;
-  padding:7px 14px;border-radius:6px;white-space:nowrap;z-index:9999;
-  font-weight:600;
+.float-toggle:hover{transform:scale(1.12);}
+.float-toggle svg{transition:transform .35s cubic-bezier(.34,1.56,.64,1);}
+.float-dock.open .float-toggle svg{transform:rotate(45deg);}
+
+/* Items del dock */
+.float-items{
+  display:flex;flex-direction:column;align-items:flex-end;gap:10px;
+  overflow:hidden;max-height:0;
+  transition:max-height .4s cubic-bezier(.16,1,.3,1),opacity .3s ease;
+  opacity:0;
 }
+.float-dock.open .float-items{max-height:280px;opacity:1;}
+
+.float-item{
+  display:flex;align-items:center;gap:10px;
+  text-decoration:none;cursor:pointer;border:none;background:none;
+}
+.float-item-label{
+  background:rgba(10,10,10,.92);color:#fff;
+  font-size:11px;font-weight:700;letter-spacing:.8px;
+  padding:6px 12px;border-radius:8px;white-space:nowrap;
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(8px);
+  opacity:0;transform:translateX(10px);
+  transition:opacity .3s ease,transform .3s ease;
+}
+.float-dock.open .float-item-label{opacity:1;transform:translateX(0);}
+.float-dock.open .float-item:nth-child(1) .float-item-label{transition-delay:.05s;}
+.float-dock.open .float-item:nth-child(2) .float-item-label{transition-delay:.1s;}
+.float-dock.open .float-item:nth-child(3) .float-item-label{transition-delay:.15s;}
+
+.float-item-btn{
+  width:48px;height:48px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;flex-shrink:0;
+  box-shadow:0 3px 14px rgba(0,0,0,.4);
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1);
+  text-decoration:none;border:2px solid rgba(255,255,255,.1);
+}
+.float-item-btn:hover{transform:scale(1.15);}
+.float-item-btn.wsp{background:#25D366;animation:wspGlow 2.2s ease-in-out infinite;}
+.float-item-btn.call{background:linear-gradient(135deg,#00c6a7,#1a73e8);animation:callGlow 2.5s ease-in-out infinite;}
+.float-item-btn.calc{background:linear-gradient(135deg,#cc1a00,#ff3a1a);animation:calcGlow 2.6s ease-in-out infinite;}
+
+/* ocultar botones viejos */
+.float-call-old,.float-wsp-old,.float-label-old,.calc-fab{display:none!important;}
+
+/* CALCULADORA BTN FLOTANTE — reemplazado por dock */
+.calc-fab{display:none!important;}
+
 
 /* RESPONSIVE básico */
 @media(max-width:900px){
@@ -466,15 +622,67 @@ footer{
   .srv-grid,.tienda-grid,.eq-grid,.ct-layout{grid-template-columns:1fr;}
   footer{flex-direction:column;gap:12px;text-align:center;}
 }
-
-/* PROG CARDS */
-.prog-grid{display:flex;flex-direction:column;gap:10px;}
-.prog-card{
-  background:#111;border:1px solid #1e1e1e;border-radius:8px;
-  padding:14px 16px;display:flex;align-items:center;gap:12px;
-  transition:border-color .2s;
+@media(max-width:600px){
+  .hero h1{font-size:36px;}
+  .hero-left{padding:48px 24px;}
+  .hero-btns{flex-direction:column;gap:10px;}
+  .hero-btns a,.hero-btns button{width:100%;justify-content:center;}
+  .hero-team{flex-direction:column;}
+  .sec-title{font-size:28px;}
+  .float-dock{bottom:20px;right:14px;}
+  .float-toggle{width:52px;height:52px;}
+  .float-item-btn{width:44px;height:44px;font-size:20px;}
+  .calc-fab{bottom:90px;right:16px;padding:11px 14px;font-size:12px;}
+  .contador-grid{grid-template-columns:repeat(2,1fr);}
+  .prod-card{padding:16px;}
+  .eq-card{padding:24px;}
 }
-.prog-card:hover{border-color:var(--rojo);}
+
+/* PROG CARDS — carrusel ruleta */
+.prog-carousel-wrap{
+  position:relative;
+  height:380px;
+  overflow:hidden;
+  border-radius:12px;
+  border:1px solid #2a2a2a;
+  background:#0a0a0a;
+  cursor:grab;
+}
+.prog-carousel-wrap:active{cursor:grabbing;}
+/* máscara fade top/bottom */
+.prog-carousel-wrap::before,.prog-carousel-wrap::after{
+  content:'';position:absolute;left:0;right:0;height:56px;z-index:2;pointer-events:none;
+}
+.prog-carousel-wrap::before{top:0;background:linear-gradient(to bottom,#0a0a0a,transparent);}
+.prog-carousel-wrap::after{bottom:0;background:linear-gradient(to top,#0a0a0a,transparent);}
+
+.prog-carousel{
+  display:flex;flex-direction:column;gap:0;
+  animation:ruletaSpin 32s linear infinite;
+  will-change:transform;
+}
+.prog-carousel.paused{animation-play-state:paused;}
+
+@keyframes ruletaSpin{
+  0%{transform:translateY(0);}
+  100%{transform:translateY(-50%);}
+}
+
+/* badge próximamente */
+.prog-pronto{
+  background:rgba(255,165,0,.1);border:1px solid rgba(255,165,0,.3);
+  color:#ffaa00;font-size:10px;font-weight:700;
+  padding:3px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;
+  letter-spacing:0.5px;
+}
+
+.prog-grid{display:flex;flex-direction:column;gap:0;}
+.prog-card{
+  background:#111;border-bottom:1px solid #1a1a1a;
+  padding:14px 16px;display:flex;align-items:center;gap:12px;
+  transition:background .2s;border-radius:0;
+}
+.prog-card:hover{background:#181818;}
 .prog-ico{font-size:24px;flex-shrink:0;}
 .prog-info{flex:1;}
 .prog-name{color:#fff;font-size:14px;font-weight:600;margin-bottom:2px;}
@@ -484,11 +692,19 @@ footer{
   color:var(--rojo);font-size:11px;font-weight:700;
   padding:3px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;
 }
+.prog-check{
+  width:22px;height:22px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-right:2px;
+}
+.prog-check.ok{background:rgba(0,191,255,.12);border:1.5px solid var(--cyan);}
+.prog-check.no{background:rgba(255,60,60,.1);border:1.5px solid #ff4444;}
+.prog-check svg{display:block;}
 .prog-wsp-btn{
   display:flex;align-items:center;justify-content:center;gap:8px;
   background:#25D366;color:#fff;border:none;
   padding:12px;border-radius:8px;font-size:13px;
-  font-weight:600;cursor:pointer;margin-top:14px;
+  font-weight:600;cursor:pointer;margin-top:12px;
   text-decoration:none;transition:background .2s;
 }
 .prog-wsp-btn:hover{background:#1ea855;}
@@ -634,12 +850,12 @@ footer{
 .calc-fab{
   position:fixed;
   bottom:100px;
-  right:24px;
+  right:20px;
   z-index:999;
   background:linear-gradient(135deg,#cc1a00,#ff3a1a);
   color:#fff;
   border:none;
-  border-radius:14px;
+  border-radius:16px;
   padding:13px 18px;
   font-family:'Barlow Condensed',sans-serif;
   font-size:13px;
@@ -651,14 +867,13 @@ footer{
   display:flex;
   align-items:center;
   gap:8px;
-  box-shadow:0 4px 20px rgba(204,26,0,0.5);
-  transition:transform .2s, box-shadow .2s;
-  animation:float 3s ease-in-out infinite;
+  animation:float 3s ease-in-out infinite, calcGlow 2.6s ease-in-out infinite;
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1);
 }
 .calc-fab:hover{
-  transform:translateY(-3px) scale(1.04);
-  box-shadow:0 8px 28px rgba(204,26,0,0.7);
+  transform:translateY(-4px) scale(1.06);
 }
+.calc-fab:active{transform:scale(.94);}
 .calc-fab-icon{font-size:20px;}
 .calc-fab-txt{line-height:1.2;}
 .calc-fab-main{display:block;font-size:13px;}
@@ -865,62 +1080,45 @@ async function sendChat() {
     <!-- PROGRAMAS -->
     <div>
       <div class="tienda-col-hdr admin">🖥️ Programas disponibles</div>
-      <div class="prog-grid">
-
-        <div class="prog-card">
-          <div class="prog-ico">📐</div>
-          <div class="prog-info">
-            <div class="prog-name">AutoCAD 2027</div>
-            <div class="prog-version">Versión más reciente · Diseño 2D/3D</div>
+      <div class="prog-carousel-wrap">
+        <div class="prog-carousel" id="progCarousel">
+                    <div class="prog-grid" id="progList">
+            <div class="prog-card"><div class="prog-ico">⚙️</div><div class="prog-info"><div class="prog-name">SoMachine Basic V1.6</div><div class="prog-version">Programación PLC Schneider Electric</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">v1.6</div></div>
+            <div class="prog-card"><div class="prog-ico">🎬</div><div class="prog-info"><div class="prog-name">Instalador Filmora V15.2</div><div class="prog-version">Editor de video profesional completo</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">v15.2</div></div>
+            <div class="prog-card"><div class="prog-ico">📄</div><div class="prog-info"><div class="prog-name">Lector PDF con IA</div><div class="prog-version">Analiza y extrae info de tus PDFs</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">IA</div></div>
+            <div class="prog-card"><div class="prog-ico">💼</div><div class="prog-info"><div class="prog-name">Microsoft Office 2024</div><div class="prog-version">Word, Excel, PowerPoint y más</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">2024</div></div>
+            <div class="prog-card"><div class="prog-ico">📐</div><div class="prog-info"><div class="prog-name">AutoCAD 2027</div><div class="prog-version">Versión más reciente · Diseño 2D/3D</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
+            <div class="prog-card"><div class="prog-ico">🏗️</div><div class="prog-info"><div class="prog-name">Revit 2026</div><div class="prog-version">Modelado BIM · Arquitectura e instalaciones</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
+            <div class="prog-card"><div class="prog-ico">🌿</div><div class="prog-info"><div class="prog-name">Lumion 2024</div><div class="prog-version">Renders y visualización 3D en tiempo real</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
+            <div class="prog-card"><div class="prog-ico">🏛️</div><div class="prog-info"><div class="prog-name">ArchiCAD 28</div><div class="prog-version">BIM avanzado · Diseño arquitectónico</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
+            <div class="prog-card"><div class="prog-ico">⚡</div><div class="prog-info"><div class="prog-name">SketchUp Pro 2025</div><div class="prog-version">Modelado 3D rápido e intuitivo</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
+            <div class="prog-card"><div class="prog-ico">🔧</div><div class="prog-info"><div class="prog-name">3ds Max 2026</div><div class="prog-version">Animación y renders fotorrealistas</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
+            <div class="prog-card"><div class="prog-ico">🖥️</div><div class="prog-info"><div class="prog-name">Navisworks 2026</div><div class="prog-version">Coordinación BIM y detección de colisiones</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
+            <div class="prog-card"><div class="prog-ico">🔩</div><div class="prog-info"><div class="prog-name">Civil 3D 2026</div><div class="prog-version">Infraestructura y diseño civil</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
           </div>
-          <div class="prog-badge">2027</div>
-        </div>
-
-        <div class="prog-card">
-          <div class="prog-ico">🏗️</div>
-          <div class="prog-info">
-            <div class="prog-name">Revit 2026</div>
-            <div class="prog-version">Modelado BIM · Arquitectura e instalaciones</div>
+          <!-- duplicado para loop infinito suave -->
+          <div class="prog-grid" aria-hidden="true">
+            <div class="prog-card"><div class="prog-ico">⚙️</div><div class="prog-info"><div class="prog-name">SoMachine Basic V1.6</div><div class="prog-version">Programación PLC Schneider Electric</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">v1.6</div></div>
+            <div class="prog-card"><div class="prog-ico">🎬</div><div class="prog-info"><div class="prog-name">Instalador Filmora V15.2</div><div class="prog-version">Editor de video profesional completo</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">v15.2</div></div>
+            <div class="prog-card"><div class="prog-ico">📄</div><div class="prog-info"><div class="prog-name">Lector PDF con IA</div><div class="prog-version">Analiza y extrae info de tus PDFs</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">IA</div></div>
+            <div class="prog-card"><div class="prog-ico">💼</div><div class="prog-info"><div class="prog-name">Microsoft Office 2024</div><div class="prog-version">Word, Excel, PowerPoint y más</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">2024</div></div>
+            <div class="prog-card"><div class="prog-ico">📐</div><div class="prog-info"><div class="prog-name">AutoCAD 2027</div><div class="prog-version">Versión más reciente · Diseño 2D/3D</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
+            <div class="prog-card"><div class="prog-ico">🏗️</div><div class="prog-info"><div class="prog-name">Revit 2026</div><div class="prog-version">Modelado BIM · Arquitectura e instalaciones</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
+            <div class="prog-card"><div class="prog-ico">🌿</div><div class="prog-info"><div class="prog-name">Lumion 2024</div><div class="prog-version">Renders y visualización 3D en tiempo real</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
+            <div class="prog-card"><div class="prog-ico">🏛️</div><div class="prog-info"><div class="prog-name">ArchiCAD 28</div><div class="prog-version">BIM avanzado · Diseño arquitectónico</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
+            <div class="prog-card"><div class="prog-ico">⚡</div><div class="prog-info"><div class="prog-name">SketchUp Pro 2025</div><div class="prog-version">Modelado 3D rápido e intuitivo</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
+            <div class="prog-card"><div class="prog-ico">🔧</div><div class="prog-info"><div class="prog-name">3ds Max 2026</div><div class="prog-version">Animación y renders fotorrealistas</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
+            <div class="prog-card"><div class="prog-ico">🖥️</div><div class="prog-info"><div class="prog-name">Navisworks 2026</div><div class="prog-version">Coordinación BIM y detección de colisiones</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
+            <div class="prog-card"><div class="prog-ico">🔩</div><div class="prog-info"><div class="prog-name">Civil 3D 2026</div><div class="prog-version">Infraestructura y diseño civil</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
+          </div><div class="prog-info"><div class="prog-name">AutoCAD 2027</div><div class="prog-version">Versión más reciente · Diseño 2D/3D</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-badge" style="background:rgba(255,60,60,.1);border-color:rgba(255,60,60,.3);color:#ff6666;">2027</div></div>
+            <div class="prog-card"><div class="prog-ico">🏗️</div><div class="prog-info"><div class="prog-name">Revit 2026</div><div class="prog-version">Modelado BIM · Arquitectura e instalaciones</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-badge" style="background:rgba(255,60,60,.1);border-color:rgba(255,60,60,.3);color:#ff6666;">2026</div></div>
+            <div class="prog-card"><div class="prog-ico">🌿</div><div class="prog-info"><div class="prog-name">Lumion 2024</div><div class="prog-version">Renders y visualización 3D en tiempo real</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-badge" style="background:rgba(255,60,60,.1);border-color:rgba(255,60,60,.3);color:#ff6666;">2024</div></div>
+            <div class="prog-card"><div class="prog-ico">🏛️</div><div class="prog-info"><div class="prog-name">ArchiCAD 28</div><div class="prog-version">BIM avanzado · Diseño arquitectónico</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-badge" style="background:rgba(255,60,60,.1);border-color:rgba(255,60,60,.3);color:#ff6666;">v28</div></div>
+            <div class="prog-card"><div class="prog-ico">⚡</div><div class="prog-info"><div class="prog-name">SketchUp Pro 2025</div><div class="prog-version">Modelado 3D rápido e intuitivo</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-badge" style="background:rgba(255,60,60,.1);border-color:rgba(255,60,60,.3);color:#ff6666;">2025</div></div>
+            <div class="prog-card"><div class="prog-ico">🔧</div><div class="prog-info"><div class="prog-name">3ds Max 2026</div><div class="prog-version">Animación y renders fotorrealistas</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-badge" style="background:rgba(255,60,60,.1);border-color:rgba(255,60,60,.3);color:#ff6666;">2026</div></div>
+            <div class="prog-card"><div class="prog-ico">⚙️</div><div class="prog-info"><div class="prog-name">SoMachine Basic V1.6</div><div class="prog-version">Programación PLC Schneider Electric</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">v1.6</div></div>
           </div>
-          <div class="prog-badge">2027</div>
         </div>
-
-        <div class="prog-card">
-          <div class="prog-ico">🌿</div>
-          <div class="prog-info">
-            <div class="prog-name">Lumion 2024</div>
-            <div class="prog-version">Renders y visualización 3D en tiempo real</div>
-          </div>
-          <div class="prog-badge">2024</div>
-        </div>
-
-        <div class="prog-card">
-          <div class="prog-ico">🏛️</div>
-          <div class="prog-info">
-            <div class="prog-name">ArchiCAD 28</div>
-            <div class="prog-version">BIM avanzado · Diseño arquitectónico</div>
-          </div>
-          <div class="prog-badge">v28</div>
-        </div>
-
-        <div class="prog-card">
-          <div class="prog-ico">⚡</div>
-          <div class="prog-info">
-            <div class="prog-name">SketchUp Pro 2025</div>
-            <div class="prog-version">Modelado 3D rápido e intuitivo</div>
-          </div>
-          <div class="prog-badge">2025</div>
-        </div>
-
-        <div class="prog-card">
-          <div class="prog-ico">🔧</div>
-          <div class="prog-info">
-            <div class="prog-name">3ds Max 2026</div>
-            <div class="prog-version">Animación y renders fotorrealistas</div>
-          </div>
-          <div class="prog-badge">2027</div>
-        </div>
-
       </div>
       <a class="prog-wsp-btn" href="https://wa.me/51932188436?text=Hola, quiero información sobre los programas de arquitectura" target="_blank">
         💬 Consultar disponibilidad por WhatsApp
@@ -976,17 +1174,18 @@ async function sendChat() {
           </div>
         </div>
 
-        <div class="prod-card" style="opacity:.5;">
+        <div class="prod-card">
           <div class="prod-top">
-            <div class="prod-ico">📐</div>
+            <div class="prod-ico">⚙️</div>
             <div class="prod-info">
-              <div class="prod-name">Próximo instalador</div>
-              <div class="prod-desc">Más software y herramientas próximamente disponibles.</div>
+              <div class="prod-name">SoMachine Basic V1.6</div>
+              <div class="prod-desc">Software de programación para PLCs Schneider Electric. Ideal para automatización industrial y control de procesos.</div>
+              <div class="prod-badge">✓ Disponible ahora</div>
             </div>
           </div>
           <div class="prod-bottom">
-            <div class="prod-precio">Pronto</div>
-            <button class="prod-dl" style="opacity:.5;cursor:default;">⏳ Próximamente</button>
+            <div class="prod-gratis">GRATIS</div>
+            <a class="prod-dl" href="https://drive.google.com/file/d/1ElYYghDT_AueoHLGkpBkmPhHZKt8CV5b/view?usp=sharing" target="_blank">⬇️ Descargar</a>
           </div>
         </div>
       </div>
@@ -1145,6 +1344,27 @@ async function sendChat() {
         <div class="ct-hor-row"><span class="ct-hor-dia">Sábado</span><span class="ct-hor-hora">9:00 — 13:00</span></div>
         <div class="ct-hor-row"><span class="ct-hor-dia">Domingo</span><span class="ct-hor-hora">Con cita previa</span></div>
       </div>
+
+      <!-- SISTEMA DE COMENTARIOS -->
+      <div class="comentarios-section">
+        <div class="com-header">
+          <div class="com-title">💬 Comentarios <span class="com-count" id="comCount">0</span></div>
+        </div>
+        <div class="com-form">
+          <div class="com-form-row">
+            <input class="com-input" id="comNombre" placeholder="Tu nombre *" maxlength="40"/>
+            <input class="com-input" id="comEmail" placeholder="Email (opcional)" maxlength="60" type="email"/>
+          </div>
+          <textarea class="com-textarea" id="comTexto" placeholder="Escribe tu comentario o pregunta..."></textarea>
+          <button class="com-submit" onclick="enviarComentario()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Publicar comentario
+          </button>
+        </div>
+        <div class="com-list" id="comList">
+          <div class="com-empty" id="comEmpty">Sé el primero en comentar ✨</div>
+        </div>
+      </div>
     </div>
     <div class="ct-form">
       <div class="ct-form-title">✉️ Envíanos un mensaje</div>
@@ -1188,7 +1408,6 @@ function enviarFormulario() {
   status.style.color = '#aaa';
   status.textContent = 'Enviando...';
 
-  // Enviar email
   emailjs.send('service_ryxbesc', 'template_jbnpwx8', {
     name: nombre,
     nombre: nombre,
@@ -1203,10 +1422,149 @@ function enviarFormulario() {
     status.textContent = '⚠️ Error al enviar email. Intenta por WhatsApp.';
   });
 
-  // Abrir WhatsApp con el mensaje
   const texto = `Hola ARQ-RBOT! Soy *${nombre}*.\n\n*Servicio:* ${servicio}\n\n*Mensaje:* ${mensaje}`;
   window.open(`https://wa.me/51932188436?text=${encodeURIComponent(texto)}`, '_blank');
 }
+
+// ── SISTEMA DE COMENTARIOS ─────────────────────────────────────
+(function(){
+  const ADMIN_PASS = 'luisinho@';
+  const STORE_KEY  = 'arqrbot-comentarios';
+  let comments = [];
+
+  function load(){
+    try{ comments = JSON.parse(localStorage.getItem(STORE_KEY)) || []; }
+    catch(e){ comments = []; }
+  }
+  function save(){ localStorage.setItem(STORE_KEY, JSON.stringify(comments)); }
+
+  function initials(name){
+    return name.trim().split(' ').map(w=>w[0]||'').join('').substring(0,2).toUpperCase();
+  }
+
+  function formatDate(ts){
+    const d = new Date(ts);
+    return d.toLocaleDateString('es-PE',{day:'2-digit',month:'short',year:'numeric'}) + ' · ' +
+           d.toLocaleTimeString('es-PE',{hour:'2-digit',minute:'2-digit'});
+  }
+
+  function render(){
+    const list  = document.getElementById('comList');
+    const empty = document.getElementById('comEmpty');
+    const count = document.getElementById('comCount');
+    if(!list) return;
+    count.textContent = comments.length;
+    if(comments.length === 0){
+      empty.style.display = 'block';
+      // clear non-empty cards
+      Array.from(list.children).forEach(c=>{ if(c.id!=='comEmpty') c.remove(); });
+      return;
+    }
+    empty.style.display = 'none';
+    list.innerHTML = '';
+    [...comments].reverse().forEach((c,i)=>{
+      const idx = comments.length - 1 - i;
+      const card = document.createElement('div');
+      card.className = 'com-card';
+      card.dataset.idx = idx;
+      const replyHTML = c.reply
+        ? `<div class="com-reply"><div class="com-reply-label">🤖 ARQ-RBOT responde</div><div class="com-reply-text">${escHtml(c.reply)}</div></div>`
+        : '';
+      const adminBtn = isAdmin()
+        ? `<button onclick="toggleReplyForm(${idx})" style="background:none;border:1px solid #222;color:#555;padding:3px 10px;border-radius:4px;font-size:11px;cursor:pointer;margin-left:auto;">Responder</button>`
+        : '';
+      const adminDel = isAdmin()
+        ? `<button onclick="deleteComment(${idx})" style="background:none;border:none;color:#333;font-size:16px;cursor:pointer;line-height:1;margin-left:4px;" title="Eliminar">×</button>`
+        : '';
+      card.innerHTML = `
+        <div class="com-card-hdr">
+          <div class="com-avatar">${initials(c.name)}</div>
+          <div class="com-meta">
+            <div class="com-author">${escHtml(c.name)}</div>
+            <div class="com-date">${formatDate(c.ts)}</div>
+          </div>
+          ${adminBtn}${adminDel}
+        </div>
+        <div class="com-text">${escHtml(c.text)}</div>
+        ${replyHTML}
+        <div class="com-reply-form" id="replyForm${idx}">
+          <textarea class="com-reply-input" id="replyInput${idx}" placeholder="Escribe tu respuesta..."></textarea>
+          <div class="com-reply-btns">
+            <button class="com-reply-send" onclick="sendReply(${idx})">✓ Publicar respuesta</button>
+            <button class="com-reply-cancel" onclick="toggleReplyForm(${idx})">Cancelar</button>
+          </div>
+        </div>`;
+      list.appendChild(card);
+    });
+  }
+
+  function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>'); }
+
+  function isAdmin(){ return sessionStorage.getItem('arqrbot-admin') === '1'; }
+
+  window.enviarComentario = function(){
+    const nombre = document.getElementById('comNombre').value.trim();
+    const texto  = document.getElementById('comTexto').value.trim();
+    if(!nombre){ alert('Por favor ingresa tu nombre.'); return; }
+    if(!texto)  { alert('Escribe tu comentario antes de publicar.'); return; }
+    comments.push({ name: nombre, text: texto, ts: Date.now(), reply: '' });
+    save(); render();
+    document.getElementById('comNombre').value = '';
+    document.getElementById('comEmail').value  = '';
+    document.getElementById('comTexto').value  = '';
+    // scroll al último comentario
+    const list = document.getElementById('comList');
+    list.scrollTop = 0;
+  };
+
+  window.toggleReplyForm = function(idx){
+    const form = document.getElementById('replyForm'+idx);
+    if(form) form.classList.toggle('open');
+  };
+
+  window.sendReply = function(idx){
+    if(!isAdmin()){ alert('No tienes permisos.'); return; }
+    const input = document.getElementById('replyInput'+idx);
+    if(!input||!input.value.trim()) return;
+    comments[idx].reply = input.value.trim();
+    save(); render();
+  };
+
+  window.deleteComment = function(idx){
+    if(!isAdmin()) return;
+    if(!confirm('¿Eliminar este comentario?')) return;
+    comments.splice(idx,1);
+    save(); render();
+  };
+
+  // Activar modo admin si la contraseña del panel ya fue validada
+  const origCheckPass = window.checkPass;
+  window.checkPass = function(){
+    const p = document.getElementById('adminPass').value;
+    if(p === ADMIN_PASS) sessionStorage.setItem('arqrbot-admin','1');
+    if(origCheckPass) origCheckPass();
+    else {
+      if(p === ADMIN_PASS){
+        document.getElementById('adminOverlay').classList.remove('active');
+        document.getElementById('adminDash').classList.add('active');
+        document.getElementById('adminPass').value='';
+        render(); // re-render con botones admin
+      } else {
+        document.getElementById('adminError').style.display='block';
+        document.getElementById('adminPass').value='';
+        document.getElementById('adminPass').focus();
+      }
+    }
+  };
+
+  window.logout = function(){
+    sessionStorage.removeItem('arqrbot-admin');
+    document.getElementById('adminDash').classList.remove('active');
+    render();
+  };
+
+  load(); render();
+})();
 </script>
 
 <!-- FOOTER -->
@@ -1224,8 +1582,7 @@ function enviarFormulario() {
 </footer>
 
 <!-- BOTÓN FLOTANTE WSP -->
-<div class="float-label">¡Escríbenos!</div>
-<a class="float-wsp" href="https://wa.me/51932188436" target="_blank">💬</a>
+
 
 
 <!-- SECRET ADMIN TRIGGER (visits /admin in URL or press Ctrl+Shift+A) -->
@@ -1254,7 +1611,7 @@ function enviarFormulario() {
     <!-- STATS -->
     <div class="admin-stats">
       <div class="admin-stat">
-        <div class="admin-stat-num" id="statArchivos">1</div>
+        <div class="admin-stat-num" id="statArchivos">4</div>
         <div class="admin-stat-label">ARCHIVOS PUBLICADOS</div>
       </div>
       <div class="admin-stat">
@@ -1366,21 +1723,52 @@ document.addEventListener('keydown', function(e){
 </script>
 
 
-<!-- CALCULADORA KWH FAB -->
-<a class="calc-fab" href="/calculadora.html">
-  <span class="calc-fab-icon">⚡</span>
-  <span class="calc-fab-txt">
-    <span class="calc-fab-main">CALCULADORA KWH</span>
-    <span class="calc-fab-sub">Toca para abrir</span>
-  </span>
-</a>
+<!-- FLOATING DOCK PROFESIONAL -->
+<div class="float-dock" id="floatDock">
+  <div class="float-items" id="floatItems">
 
-<!-- BOTÓN LLAMADA FLOTANTE -->
-<a class="float-call" href="tel:+51932188436" title="Llamar ahora">
-  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="white">
-    <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
-  </svg>
-</a>
+    <a class="float-item" href="https://wa.me/51932188436?text=Hola ARQ-RBOT, quiero más información" target="_blank">
+      <span class="float-item-label">WhatsApp</span>
+      <span class="float-item-btn wsp">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.998 2C6.477 2 2 6.477 2 12c0 1.89.525 3.656 1.437 5.168L2.016 22l4.944-1.404A9.96 9.96 0 0011.998 22c5.522 0 10-4.477 10-10S17.52 2 11.998 2z" fill-rule="evenodd" clip-rule="evenodd"/></svg>
+      </span>
+    </a>
+
+    <a class="float-item" href="tel:+51932188436">
+      <span class="float-item-label">Llamar ahora</span>
+      <span class="float-item-btn call">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+      </span>
+    </a>
+
+    <a class="float-item" href="/calculadora.html">
+      <span class="float-item-label">Calculadora kWh</span>
+      <span class="float-item-btn calc">⚡</span>
+    </a>
+
+  </div>
+
+  <button class="float-toggle" id="floatToggle" aria-label="Abrir menú de contacto">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+      <line x1="12" y1="5" x2="12" y2="19" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="5" y1="12" x2="19" y2="12" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+(function(){
+  var dock = document.getElementById('floatDock');
+  var btn  = document.getElementById('floatToggle');
+  if(!dock||!btn) return;
+  btn.addEventListener('click', function(){
+    dock.classList.toggle('open');
+  });
+  document.addEventListener('click', function(e){
+    if(!dock.contains(e.target)) dock.classList.remove('open');
+  });
+})();
+</script>
 
 <script>
 // Contador de visitas real
@@ -1439,6 +1827,136 @@ if('serviceWorker' in navigator){
     navigator.serviceWorker.register('/sw.js');
   });
 }
+
+</script>
+<script>
+// ── Scroll reveal suave ──────────────────────────────────────────
+(function(){
+  // Agregar clases reveal a elementos clave
+  const selectors = [
+    '.srv-col','.prod-card','.prog-card','.eq-card',
+    '.port-card','.ct-wsp','.ct-form','.ct-horario',
+    '.sec-title','.sec-sub','.sec-tag','.sec-divider',
+    '.tienda-col-hdr','.admin-panel','.productos-publicos'
+  ];
+  selectors.forEach(sel => {
+    document.querySelectorAll(sel).forEach((el, i) => {
+      if(!el.classList.contains('reveal') && !el.classList.contains('reveal-pop')){
+        el.classList.add('reveal');
+        el.style.transitionDelay = (i * 0.07) + 's';
+      }
+    });
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal,.reveal-left,.reveal-pop').forEach(el => io.observe(el));
+})();
+</script>
+
+<script>
+// ── Control carrusel programas con mouse wheel y drag ──────────
+(function(){
+  const wrap     = document.querySelector('.prog-carousel-wrap');
+  const carousel = document.getElementById('progCarousel');
+  if(!wrap || !carousel) return;
+
+  // Velocidad base de la animación (px/s aprox equivalente a 32s css)
+  const CARD_H   = 48; // altura aprox de cada card
+  let offset     = 0;
+  let raf        = null;
+  let speed      = 0.55;   // px por frame (lento)
+  let userOffset = 0;      // desplazamiento manual
+  let dragging   = false;
+  let dragStartY = 0;
+  let dragStartOffset = 0;
+  let momentum   = 0;
+  let lastY      = 0;
+  let lastTime   = 0;
+  let paused     = false;
+
+  // Altura total de UNA copia (la mitad del carousel)
+  function getHalfH(){
+    const grids = carousel.querySelectorAll('.prog-grid');
+    return grids[0] ? grids[0].offsetHeight : 480;
+  }
+
+  // Detener animación CSS y usar JS
+  carousel.style.animation = 'none';
+  carousel.style.transform = 'translateY(0)';
+
+  function tick(){
+    if(!paused) offset += speed;
+    if(momentum !== 0){
+      offset += momentum;
+      momentum *= 0.92;
+      if(Math.abs(momentum) < 0.1) momentum = 0;
+    }
+    const half = getHalfH();
+    if(offset >= half) offset -= half;
+    if(offset < 0)     offset += half;
+    carousel.style.transform = `translateY(-${offset}px)`;
+    raf = requestAnimationFrame(tick);
+  }
+  raf = requestAnimationFrame(tick);
+
+  // Mouse wheel → desplaza manualmente
+  wrap.addEventListener('wheel', function(e){
+    e.preventDefault();
+    momentum += e.deltaY * 0.18;
+  }, { passive: false });
+
+  // Drag con mouse
+  wrap.addEventListener('mousedown', function(e){
+    dragging    = true;
+    dragStartY  = e.clientY;
+    dragStartOffset = offset;
+    lastY       = e.clientY;
+    lastTime    = Date.now();
+    momentum    = 0;
+    wrap.style.cursor = 'grabbing';
+  });
+  document.addEventListener('mousemove', function(e){
+    if(!dragging) return;
+    const dy = dragStartY - e.clientY;
+    offset = dragStartOffset + dy;
+    const now = Date.now();
+    const dt  = now - lastTime || 16;
+    momentum  = (e.clientY - lastY) / dt * -10;
+    lastY     = e.clientY;
+    lastTime  = now;
+  });
+  document.addEventListener('mouseup', function(){
+    if(!dragging) return;
+    dragging = false;
+    wrap.style.cursor = 'grab';
+  });
+
+  // Touch support
+  wrap.addEventListener('touchstart', function(e){
+    dragStartY  = e.touches[0].clientY;
+    dragStartOffset = offset;
+    lastY       = e.touches[0].clientY;
+    lastTime    = Date.now();
+    momentum    = 0;
+  }, { passive: true });
+  wrap.addEventListener('touchmove', function(e){
+    const dy = dragStartY - e.touches[0].clientY;
+    offset = dragStartOffset + dy;
+    const now = Date.now();
+    const dt  = now - lastTime || 16;
+    momentum  = (e.touches[0].clientY - lastY) / dt * -10;
+    lastY     = e.touches[0].clientY;
+    lastTime  = now;
+  }, { passive: true });
+})();
 </script>
 </body>
 </html>
