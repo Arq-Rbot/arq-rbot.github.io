@@ -272,7 +272,7 @@ section{padding:80px 48px;}
 .tienda-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
 .tienda-col-hdr{
   font-family:'Barlow Condensed',sans-serif;
-  font-size:14px;font-weight:700;letter-spacing:3px;
+  font-size:12px;font-weight:700;letter-spacing:3px;
   text-transform:uppercase;margin-bottom:16px;
 }
 .tienda-col-hdr.admin{color:var(--rojo);}
@@ -619,7 +619,8 @@ footer{
   .hero{grid-template-columns:1fr;}
   .hero-right{display:none;}
   .hero h1{font-size:48px;}
-  .srv-grid,.tienda-grid,.eq-grid,.ct-layout{grid-template-columns:1fr;}
+  .srv-grid,.eq-grid,.ct-layout{grid-template-columns:1fr;} .tienda-grid{grid-template-columns:1fr 1fr !important;}
+  .tienda-grid{grid-template-columns:1fr 1fr;gap:14px;}
   footer{flex-direction:column;gap:12px;text-align:center;}
 }
 @media(max-width:600px){
@@ -634,8 +635,19 @@ footer{
   .float-item-btn{width:44px;height:44px;font-size:20px;}
   .calc-fab{bottom:90px;right:16px;padding:11px 14px;font-size:12px;}
   .contador-grid{grid-template-columns:repeat(2,1fr);}
-  .prod-card{padding:16px;}
+  .prod-card{padding:12px;}
+  .prod-top{gap:8px;}
+  .prod-ico{width:36px;height:36px;font-size:18px;}
+  .prod-name{font-size:12px;}
+  .prod-desc{font-size:11px;display:none;}
+  .prod-badge{font-size:9px;padding:2px 6px;}
+  .prod-precio,.prod-gratis{font-size:17px;}
+  .prod-dl{padding:7px 12px;font-size:11px;}
+  .prod-bottom{flex-direction:column;gap:8px;align-items:flex-start;}
   .eq-card{padding:24px;}
+  .tienda{padding:60px 16px;}
+  .tienda-grid{gap:10px;}
+  .tienda-col-hdr{font-size:10px;letter-spacing:2px;}
 }
 
 /* PROG CARDS — carrusel ruleta */
@@ -658,7 +670,7 @@ footer{
 
 .prog-carousel{
   display:flex;flex-direction:column;gap:0;
-  animation:ruletaSpin 32s linear infinite;
+  animation:ruletaSpin 90s linear infinite;
   will-change:transform;
 }
 .prog-carousel.paused{animation-play-state:paused;}
@@ -1082,7 +1094,7 @@ async function sendChat() {
       <div class="tienda-col-hdr admin">🖥️ Programas disponibles</div>
       <div class="prog-carousel-wrap">
         <div class="prog-carousel" id="progCarousel">
-                    <div class="prog-grid" id="progList">
+          <div class="prog-grid" id="progList">
             <div class="prog-card"><div class="prog-ico">⚙️</div><div class="prog-info"><div class="prog-name">SoMachine Basic V1.6</div><div class="prog-version">Programación PLC Schneider Electric</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">v1.6</div></div>
             <div class="prog-card"><div class="prog-ico">🎬</div><div class="prog-info"><div class="prog-name">Instalador Filmora V15.2</div><div class="prog-version">Editor de video profesional completo</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">v15.2</div></div>
             <div class="prog-card"><div class="prog-ico">📄</div><div class="prog-info"><div class="prog-name">Lector PDF con IA</div><div class="prog-version">Analiza y extrae info de tus PDFs</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">IA</div></div>
@@ -1096,7 +1108,6 @@ async function sendChat() {
             <div class="prog-card"><div class="prog-ico">🖥️</div><div class="prog-info"><div class="prog-name">Navisworks 2026</div><div class="prog-version">Coordinación BIM y detección de colisiones</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
             <div class="prog-card"><div class="prog-ico">🔩</div><div class="prog-info"><div class="prog-name">Civil 3D 2026</div><div class="prog-version">Infraestructura y diseño civil</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
           </div>
-          <!-- duplicado para loop infinito suave -->
           <div class="prog-grid" aria-hidden="true">
             <div class="prog-card"><div class="prog-ico">⚙️</div><div class="prog-info"><div class="prog-name">SoMachine Basic V1.6</div><div class="prog-version">Programación PLC Schneider Electric</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">v1.6</div></div>
             <div class="prog-card"><div class="prog-ico">🎬</div><div class="prog-info"><div class="prog-name">Instalador Filmora V15.2</div><div class="prog-version">Editor de video profesional completo</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">v15.2</div></div>
@@ -1110,13 +1121,6 @@ async function sendChat() {
             <div class="prog-card"><div class="prog-ico">🔧</div><div class="prog-info"><div class="prog-name">3ds Max 2026</div><div class="prog-version">Animación y renders fotorrealistas</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
             <div class="prog-card"><div class="prog-ico">🖥️</div><div class="prog-info"><div class="prog-name">Navisworks 2026</div><div class="prog-version">Coordinación BIM y detección de colisiones</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
             <div class="prog-card"><div class="prog-ico">🔩</div><div class="prog-info"><div class="prog-name">Civil 3D 2026</div><div class="prog-version">Infraestructura y diseño civil</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
-          </div><div class="prog-info"><div class="prog-name">AutoCAD 2027</div><div class="prog-version">Versión más reciente · Diseño 2D/3D</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-badge" style="background:rgba(255,60,60,.1);border-color:rgba(255,60,60,.3);color:#ff6666;">2027</div></div>
-            <div class="prog-card"><div class="prog-ico">🏗️</div><div class="prog-info"><div class="prog-name">Revit 2026</div><div class="prog-version">Modelado BIM · Arquitectura e instalaciones</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-badge" style="background:rgba(255,60,60,.1);border-color:rgba(255,60,60,.3);color:#ff6666;">2026</div></div>
-            <div class="prog-card"><div class="prog-ico">🌿</div><div class="prog-info"><div class="prog-name">Lumion 2024</div><div class="prog-version">Renders y visualización 3D en tiempo real</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-badge" style="background:rgba(255,60,60,.1);border-color:rgba(255,60,60,.3);color:#ff6666;">2024</div></div>
-            <div class="prog-card"><div class="prog-ico">🏛️</div><div class="prog-info"><div class="prog-name">ArchiCAD 28</div><div class="prog-version">BIM avanzado · Diseño arquitectónico</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-badge" style="background:rgba(255,60,60,.1);border-color:rgba(255,60,60,.3);color:#ff6666;">v28</div></div>
-            <div class="prog-card"><div class="prog-ico">⚡</div><div class="prog-info"><div class="prog-name">SketchUp Pro 2025</div><div class="prog-version">Modelado 3D rápido e intuitivo</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-badge" style="background:rgba(255,60,60,.1);border-color:rgba(255,60,60,.3);color:#ff6666;">2025</div></div>
-            <div class="prog-card"><div class="prog-ico">🔧</div><div class="prog-info"><div class="prog-name">3ds Max 2026</div><div class="prog-version">Animación y renders fotorrealistas</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-badge" style="background:rgba(255,60,60,.1);border-color:rgba(255,60,60,.3);color:#ff6666;">2026</div></div>
-            <div class="prog-card"><div class="prog-ico">⚙️</div><div class="prog-info"><div class="prog-name">SoMachine Basic V1.6</div><div class="prog-version">Programación PLC Schneider Electric</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">v1.6</div></div>
           </div>
         </div>
       </div>
@@ -1143,7 +1147,6 @@ async function sendChat() {
             <a class="prod-dl" href="https://drive.google.com/file/d/1f-yMiXMXrBr_DwPHYJj1eqKHUT16gzqA/view?usp=sharing" target="_blank">⬇️ Descargar</a>
           </div>
         </div>
-
         <div class="prod-card">
           <div class="prod-top">
             <div class="prod-ico">📄</div>
@@ -1158,7 +1161,6 @@ async function sendChat() {
             <a class="prod-dl" href="https://drive.google.com/file/d/1wYGyiRUb-TCeULd-jxWfzS10vNLYnEBo/view?usp=sharing" target="_blank">⬇️ Descargar</a>
           </div>
         </div>
-
         <div class="prod-card">
           <div class="prod-top">
             <div class="prod-ico">💼</div>
@@ -1173,13 +1175,12 @@ async function sendChat() {
             <a class="prod-dl" href="https://drive.google.com/file/d/1OmUZef5t7Uqk0TUz80O35XBoUd3bW3Wo/view?usp=sharing" target="_blank">⬇️ Descargar</a>
           </div>
         </div>
-
         <div class="prod-card">
           <div class="prod-top">
             <div class="prod-ico">⚙️</div>
             <div class="prod-info">
               <div class="prod-name">SoMachine Basic V1.6</div>
-              <div class="prod-desc">Software de programación para PLCs Schneider Electric. Ideal para automatización industrial y control de procesos.</div>
+              <div class="prod-desc">Software de programación para PLCs Schneider Electric. Ideal para automatización industrial.</div>
               <div class="prod-badge">✓ Disponible ahora</div>
             </div>
           </div>
@@ -1190,9 +1191,9 @@ async function sendChat() {
         </div>
       </div>
     </div>
+
   </div>
 </section>
-
 
 <!-- PORTAFOLIO -->
 <section class="portafolio" id="portafolio">
@@ -1872,7 +1873,7 @@ if('serviceWorker' in navigator){
   const CARD_H   = 48; // altura aprox de cada card
   let offset     = 0;
   let raf        = null;
-  let speed      = 0.55;   // px por frame (lento)
+  let speed      = 0.15;   // px por frame (lento)
   let userOffset = 0;      // desplazamiento manual
   let dragging   = false;
   let dragStartY = 0;
