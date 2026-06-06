@@ -417,10 +417,11 @@ section{padding:80px 48px;}
   cursor:pointer;transition:background .2s;display:flex;align-items:center;gap:6px;
 }
 .com-submit:hover{background:var(--rojo2);}
-.com-list{max-height:380px;overflow-y:auto;padding:14px 22px;display:flex;flex-direction:column;gap:14px;}
+.com-list{max-height:320px;overflow-y:auto;padding:14px 22px;display:flex;flex-direction:column;gap:14px;}
 .com-list::-webkit-scrollbar{width:4px;}
 .com-list::-webkit-scrollbar-track{background:#0d0d0d;}
 .com-list::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px;}
+.com-empty-msg{color:#444;font-size:13px;text-align:center;padding:20px 0;font-style:italic;}
 .com-empty{color:#444;font-size:13px;text-align:center;padding:28px 0;font-style:italic;}
 
 /* Tarjeta de comentario */
@@ -727,6 +728,103 @@ footer{
   text-decoration:none;transition:background .2s;
 }
 .prog-wsp-btn:hover{background:#1ea855;}
+
+/* ── PETICIONES DE PROGRAMAS ─────────────────────────────────── */
+.peticiones-box{
+  margin-top:16px;
+  background:#0d0d0d;
+  border:1px solid rgba(204,34,0,.35);
+  border-top:3px solid var(--rojo);
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 4px 24px rgba(204,34,0,.12);
+}
+.pet-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 20px;border-bottom:1px solid #1a1a1a;
+  background:rgba(204,34,0,.06);
+}
+.pet-title{color:#fff;font-size:16px;font-weight:800;letter-spacing:.3px;}
+.pet-count{
+  background:rgba(204,34,0,.15);border:1px solid rgba(204,34,0,.3);
+  color:var(--rojo);font-size:11px;font-weight:700;
+  padding:3px 10px;border-radius:10px;letter-spacing:.5px;
+}
+.pet-login{padding:16px 20px;display:flex;gap:10px;}
+.pet-input{
+  flex:1;background:#161616;border:1px solid #2a2a2a;border-radius:8px;
+  padding:12px 16px;color:#ddd;font-size:14px;
+  font-family:'Barlow',sans-serif;outline:none;
+  transition:border-color .2s;
+}
+.pet-input:focus{border-color:var(--rojo);}
+.pet-login-btn{
+  background:var(--rojo);color:#fff;border:none;
+  padding:12px 20px;border-radius:8px;font-size:13px;font-weight:700;
+  cursor:pointer;white-space:nowrap;transition:background .2s;
+  letter-spacing:.3px;
+}
+.pet-login-btn:hover{background:var(--rojo2);}
+.pet-form{padding:14px 20px 16px;}
+.pet-user-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.pet-user-badge{
+  background:rgba(204,34,0,.15);border:1px solid rgba(204,34,0,.3);
+  color:var(--rojo);font-size:12px;font-weight:700;
+  padding:4px 12px;border-radius:10px;
+}
+.pet-logout-btn{
+  background:none;border:none;color:#444;font-size:12px;cursor:pointer;
+  text-decoration:underline;
+}
+.pet-logout-btn:hover{color:#888;}
+.pet-send-btn{
+  background:var(--rojo);color:#fff;border:none;
+  padding:12px 18px;border-radius:8px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s;flex-shrink:0;
+}
+.pet-send-btn:hover{background:var(--rojo2);}
+.pet-list{
+  max-height:240px;overflow-y:auto;
+  padding:10px 20px 16px;
+  display:flex;flex-direction:column;gap:8px;
+}
+.pet-list::-webkit-scrollbar{width:4px;}
+.pet-list::-webkit-scrollbar-track{background:#111;}
+.pet-list::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px;}
+.pet-empty{
+  color:#444;font-size:13px;text-align:center;
+  padding:20px 0;font-style:italic;
+}
+.pet-card{
+  background:#141414;border:1px solid #222;border-radius:10px;
+  padding:12px 14px;display:flex;align-items:flex-start;gap:12px;
+  transition:border-color .2s;
+}
+.pet-card:hover{border-color:#2a2a2a;}
+.pet-av{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--rojo),#ff5533);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;color:#fff;
+  font-family:'Barlow Condensed',sans-serif;
+}
+.pet-info{flex:1;min-width:0;}
+.pet-info-top{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+.pet-autor{color:#fff;font-size:13px;font-weight:700;}
+.pet-fecha{color:#444;font-size:11px;}
+.pet-programa{color:#ccc;font-size:14px;line-height:1.5;word-break:break-word;font-weight:500;}
+.pet-votos{
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  flex-shrink:0;
+}
+.pet-voto-btn{
+  background:none;border:none;color:#333;font-size:18px;cursor:pointer;
+  line-height:1;transition:color .15s,transform .15s;padding:2px;
+}
+.pet-voto-btn:hover{color:var(--rojo);transform:scale(1.2);}
+.pet-voto-btn.voted{color:var(--rojo);}
+.pet-voto-num{color:#666;font-size:11px;font-weight:700;}
 
 
 /* ADMIN PANEL */
@@ -1134,6 +1232,39 @@ async function sendChat() {
       <a class="prog-wsp-btn" href="https://wa.me/51932188436?text=Hola, quiero información sobre los programas de arquitectura" target="_blank">
         💬 Consultar disponibilidad por WhatsApp
       </a>
+
+      <!-- PETICIONES DE PROGRAMAS -->
+      <div class="peticiones-box" id="peticionesBox">
+        <div class="pet-header">
+          <span class="pet-title">📢 ¿Qué programa necesitas?</span>
+          <span class="pet-count" id="petCount">0 peticiones</span>
+        </div>
+
+        <!-- LOGIN -->
+        <div class="pet-login" id="petLogin">
+          <input class="pet-input" id="petNickname" placeholder="Tu nombre o apodo *" maxlength="30"/>
+          <button class="pet-login-btn" onclick="peticionLogin()">Entrar →</button>
+        </div>
+
+        <!-- FORMULARIO (visible tras login) -->
+        <div class="pet-form" id="petForm" style="display:none;">
+          <div class="pet-user-row">
+            <span class="pet-user-badge" id="petUserBadge"></span>
+            <button class="pet-logout-btn" onclick="peticionLogout()">Cambiar</button>
+          </div>
+          <div style="display:flex;gap:10px;">
+            <input class="pet-input" id="petPrograma" placeholder="Escribe el programa que deseas... (ej: AutoCAD 2026)" maxlength="80" style="flex:1;" onkeydown="if(event.key==='Enter')enviarPeticion()"/>
+            <button class="pet-send-btn" onclick="enviarPeticion()" title="Enviar petición">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- LISTA DE PETICIONES -->
+        <div class="pet-list" id="petList">
+          <div class="pet-empty" id="petEmpty">Sé el primero en pedir un programa ✨</div>
+        </div>
+      </div>
     </div>
 
     <!-- PRODUCTOS PUBLICOS -->
@@ -1446,27 +1577,56 @@ function enviarFormulario() {
   window.open(`https://wa.me/51932188436?text=${encodeURIComponent(texto)}`, '_blank');
 }
 
-// ── SISTEMA DE COMENTARIOS ─────────────────────────────────────
+// ── SISTEMA DE COMENTARIOS — Firebase Realtime Database ──────────
 (function(){
   const ADMIN_PASS = 'luisinho@';
-  const STORE_KEY  = 'arqrbot-comentarios';
-  let comments = [];
+  const DB_URL     = 'https://arq-rbot-default-rtdb.firebaseio.com';
+  let comments     = []; // [{id, name, text, ts, reply}]
 
-  function load(){
-    try{ comments = JSON.parse(localStorage.getItem(STORE_KEY)) || []; }
-    catch(e){ comments = []; }
+  function fetchComments(){
+    fetch(DB_URL + '/comentarios.json')
+      .then(r => r.json())
+      .then(data => {
+        if(!data){ comments = []; }
+        else {
+          comments = Object.entries(data).map(([id,v]) => ({id,...v}));
+          comments.sort((a,b) => b.ts - a.ts);
+        }
+        render();
+      })
+      .catch(() => render());
   }
-  function save(){ localStorage.setItem(STORE_KEY, JSON.stringify(comments)); }
+
+  function pushComment(obj){
+    return fetch(DB_URL + '/comentarios.json', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(obj)
+    }).then(r => r.json());
+  }
+
+  function patchReply(id, reply){
+    return fetch(DB_URL + '/comentarios/' + id + '.json', {
+      method:'PATCH',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ reply })
+    });
+  }
+
+  function deleteFirebase(id){
+    return fetch(DB_URL + '/comentarios/' + id + '.json', { method:'DELETE' });
+  }
 
   function initials(name){
     return name.trim().split(' ').map(w=>w[0]||'').join('').substring(0,2).toUpperCase();
   }
-
   function formatDate(ts){
     const d = new Date(ts);
     return d.toLocaleDateString('es-PE',{day:'2-digit',month:'short',year:'numeric'}) + ' · ' +
            d.toLocaleTimeString('es-PE',{hour:'2-digit',minute:'2-digit'});
   }
+  function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>'); }
+  function isAdmin(){ return sessionStorage.getItem('arqrbot-admin') === '1'; }
 
   function render(){
     const list  = document.getElementById('comList');
@@ -1474,27 +1634,22 @@ function enviarFormulario() {
     const count = document.getElementById('comCount');
     if(!list) return;
     count.textContent = comments.length;
+    list.innerHTML = '';
     if(comments.length === 0){
-      empty.style.display = 'block';
-      // clear non-empty cards
-      Array.from(list.children).forEach(c=>{ if(c.id!=='comEmpty') c.remove(); });
+      list.appendChild(Object.assign(document.createElement('div'),{id:'comEmpty',className:'com-empty-msg',textContent:'Sé el primero en comentar ✨'}));
       return;
     }
-    empty.style.display = 'none';
-    list.innerHTML = '';
-    [...comments].reverse().forEach((c,i)=>{
-      const idx = comments.length - 1 - i;
+    comments.forEach((c) => {
       const card = document.createElement('div');
       card.className = 'com-card';
-      card.dataset.idx = idx;
       const replyHTML = c.reply
         ? `<div class="com-reply"><div class="com-reply-label">🤖 ARQ-RBOT responde</div><div class="com-reply-text">${escHtml(c.reply)}</div></div>`
         : '';
       const adminBtn = isAdmin()
-        ? `<button onclick="toggleReplyForm(${idx})" style="background:none;border:1px solid #222;color:#555;padding:3px 10px;border-radius:4px;font-size:11px;cursor:pointer;margin-left:auto;">Responder</button>`
+        ? `<button onclick="toggleReplyForm('${c.id}')" style="background:none;border:1px solid #222;color:#555;padding:3px 10px;border-radius:4px;font-size:11px;cursor:pointer;margin-left:auto;">Responder</button>`
         : '';
       const adminDel = isAdmin()
-        ? `<button onclick="deleteComment(${idx})" style="background:none;border:none;color:#333;font-size:16px;cursor:pointer;line-height:1;margin-left:4px;" title="Eliminar">×</button>`
+        ? `<button onclick="deleteComment('${c.id}')" style="background:none;border:none;color:#333;font-size:16px;cursor:pointer;line-height:1;margin-left:4px;" title="Eliminar">×</button>`
         : '';
       card.innerHTML = `
         <div class="com-card-hdr">
@@ -1507,57 +1662,56 @@ function enviarFormulario() {
         </div>
         <div class="com-text">${escHtml(c.text)}</div>
         ${replyHTML}
-        <div class="com-reply-form" id="replyForm${idx}">
-          <textarea class="com-reply-input" id="replyInput${idx}" placeholder="Escribe tu respuesta..."></textarea>
+        <div class="com-reply-form" id="replyForm${c.id}">
+          <textarea class="com-reply-input" id="replyInput${c.id}" placeholder="Escribe tu respuesta..."></textarea>
           <div class="com-reply-btns">
-            <button class="com-reply-send" onclick="sendReply(${idx})">✓ Publicar respuesta</button>
-            <button class="com-reply-cancel" onclick="toggleReplyForm(${idx})">Cancelar</button>
+            <button class="com-reply-send" onclick="sendReply('${c.id}')">✓ Publicar respuesta</button>
+            <button class="com-reply-cancel" onclick="toggleReplyForm('${c.id}')">Cancelar</button>
           </div>
         </div>`;
       list.appendChild(card);
     });
   }
 
-  function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>'); }
-
-  function isAdmin(){ return sessionStorage.getItem('arqrbot-admin') === '1'; }
-
   window.enviarComentario = function(){
     const nombre = document.getElementById('comNombre').value.trim();
     const texto  = document.getElementById('comTexto').value.trim();
     if(!nombre){ alert('Por favor ingresa tu nombre.'); return; }
     if(!texto)  { alert('Escribe tu comentario antes de publicar.'); return; }
-    comments.push({ name: nombre, text: texto, ts: Date.now(), reply: '' });
-    save(); render();
-    document.getElementById('comNombre').value = '';
-    document.getElementById('comEmail').value  = '';
-    document.getElementById('comTexto').value  = '';
-    // scroll al último comentario
-    const list = document.getElementById('comList');
-    list.scrollTop = 0;
+    const btn = document.querySelector('.com-submit');
+    if(btn){ btn.disabled=true; btn.textContent='Publicando...'; }
+    pushComment({ name: nombre, text: texto, ts: Date.now(), reply: '' })
+      .then(() => {
+        document.getElementById('comNombre').value = '';
+        document.getElementById('comEmail').value  = '';
+        document.getElementById('comTexto').value  = '';
+        fetchComments();
+      })
+      .catch(() => alert('Error al publicar. Revisa tu conexión.'))
+      .finally(() => {
+        if(btn){ btn.disabled=false; btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Publicar comentario'; }
+      });
   };
 
-  window.toggleReplyForm = function(idx){
-    const form = document.getElementById('replyForm'+idx);
+  window.toggleReplyForm = function(id){
+    const form = document.getElementById('replyForm'+id);
     if(form) form.classList.toggle('open');
   };
 
-  window.sendReply = function(idx){
+  window.sendReply = function(id){
     if(!isAdmin()){ alert('No tienes permisos.'); return; }
-    const input = document.getElementById('replyInput'+idx);
+    const input = document.getElementById('replyInput'+id);
     if(!input||!input.value.trim()) return;
-    comments[idx].reply = input.value.trim();
-    save(); render();
+    patchReply(id, input.value.trim()).then(() => fetchComments());
   };
 
-  window.deleteComment = function(idx){
+  window.deleteComment = function(id){
     if(!isAdmin()) return;
     if(!confirm('¿Eliminar este comentario?')) return;
-    comments.splice(idx,1);
-    save(); render();
+    deleteFirebase(id).then(() => fetchComments());
   };
 
-  // Activar modo admin si la contraseña del panel ya fue validada
+  // Admin login
   const origCheckPass = window.checkPass;
   window.checkPass = function(){
     const p = document.getElementById('adminPass').value;
@@ -1568,7 +1722,7 @@ function enviarFormulario() {
         document.getElementById('adminOverlay').classList.remove('active');
         document.getElementById('adminDash').classList.add('active');
         document.getElementById('adminPass').value='';
-        render(); // re-render con botones admin
+        render();
       } else {
         document.getElementById('adminError').style.display='block';
         document.getElementById('adminPass').value='';
@@ -1583,7 +1737,8 @@ function enviarFormulario() {
     render();
   };
 
-  load(); render();
+  fetchComments();
+  setInterval(fetchComments, 30000);
 })();
 </script>
 
@@ -2011,6 +2166,147 @@ if('serviceWorker' in navigator){
     lastY     = e.touches[0].clientY;
     lastTime  = now;
   }, { passive: true });
+})();
+</script>
+<script>
+// ── PETICIONES DE PROGRAMAS — Firebase Realtime Database ─────────
+(function(){
+  // 🔴 INSTRUCCIONES (solo una vez):
+  // 1. Ve a https://console.firebase.google.com
+  // 2. Crea proyecto → "arqrbot" → Realtime Database → Crear base de datos
+  // 3. Reglas → pegar: { "rules": { ".read": true, ".write": true } } → Publicar
+  // 4. Copia tu URL (ej: https://arqrbot-default-rtdb.firebaseio.com)
+  // 5. Reemplaza DB_URL abajo con tu URL real
+  const DB_URL   = 'https://arq-rbot-default-rtdb.firebaseio.com';
+  const LS_USER  = 'arqrbot-pet-user';
+  const LS_VOTED = 'arqrbot-pet-voted';
+
+  let peticiones  = [];
+  let currentUser = localStorage.getItem(LS_USER) || '';
+  let votedIds    = JSON.parse(localStorage.getItem(LS_VOTED) || '[]');
+
+  function fetchPeticiones(){
+    fetch(DB_URL + '/peticiones.json')
+      .then(r => r.json())
+      .then(data => {
+        if(!data){ peticiones = []; }
+        else {
+          peticiones = Object.entries(data).map(([id, v]) => ({ id, ...v }));
+          peticiones.sort((a,b) => (b.votos||0)-(a.votos||0) || b.ts-a.ts);
+        }
+        renderPeticiones();
+      })
+      .catch(() => { renderPeticiones(); });
+  }
+
+  function pushPeticion(obj){
+    return fetch(DB_URL + '/peticiones.json', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(obj)
+    }).then(r => r.json());
+  }
+
+  function patchVotos(id, votos){
+    return fetch(DB_URL + '/peticiones/' + id + '.json', {
+      method: 'PATCH',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ votos })
+    });
+  }
+
+  function initials(n){ return n.trim().split(' ').map(w=>w[0]||'').join('').substring(0,2).toUpperCase()||'??'; }
+  function timeAgo(ts){
+    const m = Math.floor((Date.now()-ts)/60000);
+    if(m<1)  return 'ahora mismo';
+    if(m<60) return 'hace '+m+'m';
+    const h = Math.floor(m/60);
+    if(h<24) return 'hace '+h+'h';
+    return 'hace '+Math.floor(h/24)+'d';
+  }
+  function escH(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function renderPeticiones(){
+    const list  = document.getElementById('petList');
+    const empty = document.getElementById('petEmpty');
+    const count = document.getElementById('petCount');
+    if(!list) return;
+    count.textContent = peticiones.length + ' peticion' + (peticiones.length!==1?'es':'');
+    Array.from(list.querySelectorAll('.pet-card')).forEach(c=>c.remove());
+    if(peticiones.length===0){ empty.style.display='block'; return; }
+    empty.style.display='none';
+    peticiones.forEach(p => {
+      const voted = votedIds.includes(p.id);
+      const card  = document.createElement('div');
+      card.className = 'pet-card';
+      card.innerHTML = `
+        <div class="pet-av">${initials(p.autor)}</div>
+        <div class="pet-info">
+          <div class="pet-info-top">
+            <span class="pet-autor">${escH(p.autor)}</span>
+            <span class="pet-fecha">${timeAgo(p.ts)}</span>
+          </div>
+          <div class="pet-programa">📦 ${escH(p.programa)}</div>
+        </div>
+        <div class="pet-votos">
+          <button class="pet-voto-btn ${voted?'voted':''}" onclick="votarPeticion('${p.id}',${p.votos||0})" title="Yo también lo quiero">▲</button>
+          <span class="pet-voto-num">${p.votos||0}</span>
+        </div>`;
+      list.appendChild(card);
+    });
+    list.scrollTop = 0;
+  }
+
+  window.peticionLogin = function(){
+    const nick = document.getElementById('petNickname').value.trim();
+    if(!nick){ document.getElementById('petNickname').focus(); return; }
+    currentUser = nick;
+    localStorage.setItem(LS_USER, nick);
+    document.getElementById('petLogin').style.display = 'none';
+    document.getElementById('petForm').style.display  = 'block';
+    document.getElementById('petUserBadge').textContent = '👤 ' + nick;
+  };
+
+  window.peticionLogout = function(){
+    currentUser = '';
+    localStorage.removeItem(LS_USER);
+    document.getElementById('petLogin').style.display = 'flex';
+    document.getElementById('petForm').style.display  = 'none';
+    document.getElementById('petNickname').value = '';
+  };
+
+  window.enviarPeticion = function(){
+    const prog = document.getElementById('petPrograma').value.trim();
+    if(!prog || !currentUser) return;
+    const yaExiste = peticiones.some(p =>
+      p.autor.toLowerCase()===currentUser.toLowerCase() &&
+      p.programa.toLowerCase()===prog.toLowerCase()
+    );
+    if(yaExiste){ alert('Ya pediste ese programa 😉'); return; }
+    const btn = document.querySelector('.pet-send-btn');
+    if(btn) btn.disabled = true;
+    pushPeticion({ autor: currentUser, programa: prog, ts: Date.now(), votos: 0 })
+      .then(() => { document.getElementById('petPrograma').value=''; fetchPeticiones(); })
+      .catch(() => alert('Error al guardar. Revisa tu conexión.'))
+      .finally(() => { if(btn) btn.disabled=false; });
+  };
+
+  window.votarPeticion = function(id, votos){
+    if(votedIds.includes(id)) return;
+    votedIds.push(id);
+    localStorage.setItem(LS_VOTED, JSON.stringify(votedIds));
+    patchVotos(id, votos+1).then(() => fetchPeticiones());
+  };
+
+  // Init
+  if(currentUser){
+    document.getElementById('petLogin').style.display = 'none';
+    document.getElementById('petForm').style.display  = 'block';
+    document.getElementById('petUserBadge').textContent = '👤 ' + currentUser;
+  }
+  fetchPeticiones();
+  // Refresca cada 30s para ver peticiones nuevas de otros usuarios
+  setInterval(fetchPeticiones, 30000);
 })();
 </script>
 </body>
