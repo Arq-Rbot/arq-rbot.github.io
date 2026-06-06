@@ -347,6 +347,13 @@ section{padding:80px 48px;}
   background:transparent;border:1px solid #333;color:#888;
   cursor:default;
 }
+.prod-dl-count{
+  display:inline-flex;align-items:center;gap:5px;
+  color:#555;font-size:11px;letter-spacing:.5px;margin-top:6px;
+}
+.prod-dl-count span{
+  color:var(--cyan);font-weight:700;font-size:12px;
+}
 
 /* EQUIPO */
 .equipo{background:var(--blanco);position:relative;overflow:hidden;}
@@ -982,7 +989,7 @@ footer{
     </div>
 
 <script>
-const GEMINI_KEY = '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';
+const GEMINI_KEY = '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';
 const chatHistory = [];
 const systemPrompt = `Eres el asistente virtual de ARQ-RBOT, empresa de arquitectura, robótica y tecnología en Perú.
 Responde SIEMPRE en máximo 2-3 líneas, de forma breve, directa y amigable.
@@ -1143,8 +1150,11 @@ async function sendChat() {
             </div>
           </div>
           <div class="prod-bottom">
-            <div class="prod-gratis">GRATIS</div>
-            <a class="prod-dl" href="https://drive.google.com/file/d/1f-yMiXMXrBr_DwPHYJj1eqKHUT16gzqA/view?usp=sharing" target="_blank">⬇️ Descargar</a>
+            <div>
+              <div class="prod-gratis">GRATIS</div>
+              <div class="prod-dl-count">⬇ <span id="dl-filmora">...</span> descargas</div>
+            </div>
+            <a class="prod-dl" href="https://drive.google.com/file/d/1f-yMiXMXrBr_DwPHYJj1eqKHUT16gzqA/view?usp=sharing" target="_blank" onclick="countDownload('filmora','dl-filmora')">⬇️ Descargar</a>
           </div>
         </div>
         <div class="prod-card">
@@ -1157,8 +1167,11 @@ async function sendChat() {
             </div>
           </div>
           <div class="prod-bottom">
-            <div class="prod-gratis">GRATIS</div>
-            <a class="prod-dl" href="https://drive.google.com/file/d/1wYGyiRUb-TCeULd-jxWfzS10vNLYnEBo/view?usp=sharing" target="_blank">⬇️ Descargar</a>
+            <div>
+              <div class="prod-gratis">GRATIS</div>
+              <div class="prod-dl-count">⬇ <span id="dl-pdf">...</span> descargas</div>
+            </div>
+            <a class="prod-dl" href="https://drive.google.com/file/d/1wYGyiRUb-TCeULd-jxWfzS10vNLYnEBo/view?usp=sharing" target="_blank" onclick="countDownload('lectorpdf','dl-pdf')">⬇️ Descargar</a>
           </div>
         </div>
         <div class="prod-card">
@@ -1171,8 +1184,11 @@ async function sendChat() {
             </div>
           </div>
           <div class="prod-bottom">
-            <div class="prod-gratis">GRATIS</div>
-            <a class="prod-dl" href="https://drive.google.com/file/d/1OmUZef5t7Uqk0TUz80O35XBoUd3bW3Wo/view?usp=sharing" target="_blank">⬇️ Descargar</a>
+            <div>
+              <div class="prod-gratis">GRATIS</div>
+              <div class="prod-dl-count">⬇ <span id="dl-office">...</span> descargas</div>
+            </div>
+            <a class="prod-dl" href="https://drive.google.com/file/d/1OmUZef5t7Uqk0TUz80O35XBoUd3bW3Wo/view?usp=sharing" target="_blank" onclick="countDownload('office2024','dl-office')">⬇️ Descargar</a>
           </div>
         </div>
         <div class="prod-card">
@@ -1185,8 +1201,11 @@ async function sendChat() {
             </div>
           </div>
           <div class="prod-bottom">
-            <div class="prod-gratis">GRATIS</div>
-            <a class="prod-dl" href="https://drive.google.com/file/d/1ElYYghDT_AueoHLGkpBkmPhHZKt8CV5b/view?usp=sharing" target="_blank">⬇️ Descargar</a>
+            <div>
+              <div class="prod-gratis">GRATIS</div>
+              <div class="prod-dl-count">⬇ <span id="dl-somachine">...</span> descargas</div>
+            </div>
+            <a class="prod-dl" href="https://drive.google.com/file/d/1ElYYghDT_AueoHLGkpBkmPhHZKt8CV5b/view?usp=sharing" target="_blank" onclick="countDownload('somachine','dl-somachine')">⬇️ Descargar</a>
           </div>
         </div>
       </div>
@@ -1822,6 +1841,41 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.5 });
 counters.forEach(c => observer.observe(c));
 </script>
+<script>
+// ── CONTADOR DE DESCARGAS ────────────────────────────────────────
+const dlProducts = [
+  { key: 'filmora',    elId: 'dl-filmora'    },
+  { key: 'lectorpdf',  elId: 'dl-pdf'        },
+  { key: 'office2024', elId: 'dl-office'     },
+  { key: 'somachine',  elId: 'dl-somachine'  },
+];
+
+// Carga los contadores actuales al cargar la página (sin incrementar)
+dlProducts.forEach(({ key, elId }) => {
+  fetch(`https://api.counterapi.dev/v1/arqrbot-dl-${key}/count`)
+    .then(r => r.json())
+    .then(d => {
+      const el = document.getElementById(elId);
+      if (el) el.textContent = (d.count || 0).toLocaleString();
+    })
+    .catch(() => {
+      const el = document.getElementById(elId);
+      if (el) el.textContent = '0';
+    });
+});
+
+// Incrementa el contador al hacer clic en Descargar
+function countDownload(key, elId) {
+  fetch(`https://api.counterapi.dev/v1/arqrbot-dl-${key}/up`)
+    .then(r => r.json())
+    .then(d => {
+      const el = document.getElementById(elId);
+      if (el && d.count) el.textContent = d.count.toLocaleString();
+    })
+    .catch(() => {});
+}
+</script>
+
 <script>
 if('serviceWorker' in navigator){
   window.addEventListener('load', () => {
