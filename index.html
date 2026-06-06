@@ -333,7 +333,8 @@ section{padding:80px 48px;}
   font-size:10px;padding:3px 8px;border-radius:3px;
   margin-top:6px;letter-spacing:1px;text-transform:uppercase;
 }
-.prod-bottom{display:flex;align-items:center;justify-content:space-between;}
+.prod-bottom{display:flex;align-items:center;width:100%;}
+.prod-gratis-row{display:flex;align-items:center;justify-content:space-between;width:100%;}
 .prod-precio{color:var(--rojo);font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;}
 .prod-gratis{color:#25D366;font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;}
 .prod-dl{
@@ -341,6 +342,7 @@ section{padding:80px 48px;}
   padding:9px 18px;border-radius:6px;font-size:13px;
   cursor:pointer;display:flex;align-items:center;gap:6px;
   font-weight:600;transition:background .2s;text-decoration:none;
+  white-space:nowrap;flex-shrink:0;
 }
 .prod-dl:hover{background:var(--rojo2);}
 .prod-dl.gumroad{
@@ -349,10 +351,18 @@ section{padding:80px 48px;}
 }
 .prod-dl-count{
   display:inline-flex;align-items:center;gap:5px;
-  color:#555;font-size:11px;letter-spacing:.5px;margin-top:6px;
+  letter-spacing:.3px;
 }
-.prod-dl-count span{
-  color:var(--cyan);font-weight:700;font-size:12px;
+.prod-dl-count .dl-icon{
+  color:var(--cyan);font-size:13px;line-height:1;
+}
+.prod-dl-count .dl-num{
+  color:var(--cyan);font-weight:900;
+  font-size:26px;font-family:'Barlow Condensed',sans-serif;
+  line-height:1;
+}
+.prod-dl-count .dl-label-top{
+  color:#555;font-size:10px;letter-spacing:1px;text-transform:uppercase;font-weight:500;
 }
 
 /* EQUIPO */
@@ -1279,13 +1289,13 @@ async function sendChat() {
               <div class="prod-desc">Editor de video profesional. Versión completa con todas las funciones de edición avanzada.</div>
               <div class="prod-badge">✓ Disponible ahora</div>
             </div>
+            <a class="prod-dl" href="https://drive.google.com/file/d/1f-yMiXMXrBr_DwPHYJj1eqKHUT16gzqA/view?usp=sharing" target="_blank" onclick="countDownload('filmora','dl-filmora')">⬇️ Descargar</a>
           </div>
           <div class="prod-bottom">
-            <div>
+            <div class="prod-gratis-row">
               <div class="prod-gratis">GRATIS</div>
-              <div class="prod-dl-count">⬇ <span id="dl-filmora">...</span> descargas</div>
+              <div class="prod-dl-count"><span class="dl-icon">⬇</span><span class="dl-num" id="dl-filmora">—</span><span class="dl-label-top">descargas</span></div>
             </div>
-            <a class="prod-dl" href="https://drive.google.com/file/d/1f-yMiXMXrBr_DwPHYJj1eqKHUT16gzqA/view?usp=sharing" target="_blank" onclick="countDownload('filmora','dl-filmora')">⬇️ Descargar</a>
           </div>
         </div>
         <div class="prod-card">
@@ -1296,13 +1306,13 @@ async function sendChat() {
               <div class="prod-desc">Lee, analiza y extrae información de tus PDFs con inteligencia artificial.</div>
               <div class="prod-badge">✓ Disponible ahora</div>
             </div>
+            <a class="prod-dl" href="https://drive.google.com/file/d/1wYGyiRUb-TCeULd-jxWfzS10vNLYnEBo/view?usp=sharing" target="_blank" onclick="countDownload('lectorpdf','dl-pdf')">⬇️ Descargar</a>
           </div>
           <div class="prod-bottom">
-            <div>
+            <div class="prod-gratis-row">
               <div class="prod-gratis">GRATIS</div>
-              <div class="prod-dl-count">⬇ <span id="dl-pdf">...</span> descargas</div>
+              <div class="prod-dl-count"><span class="dl-icon">⬇</span><span class="dl-num" id="dl-pdf">—</span><span class="dl-label-top">descargas</span></div>
             </div>
-            <a class="prod-dl" href="https://drive.google.com/file/d/1wYGyiRUb-TCeULd-jxWfzS10vNLYnEBo/view?usp=sharing" target="_blank" onclick="countDownload('lectorpdf','dl-pdf')">⬇️ Descargar</a>
           </div>
         </div>
         <div class="prod-card">
@@ -1313,13 +1323,13 @@ async function sendChat() {
               <div class="prod-desc">Suite completa de Office: Word, Excel, PowerPoint y más. Versión 2024.</div>
               <div class="prod-badge">✓ Disponible ahora</div>
             </div>
+            <a class="prod-dl" href="https://drive.google.com/file/d/1OmUZef5t7Uqk0TUz80O35XBoUd3bW3Wo/view?usp=sharing" target="_blank" onclick="countDownload('office2024','dl-office')">⬇️ Descargar</a>
           </div>
           <div class="prod-bottom">
-            <div>
+            <div class="prod-gratis-row">
               <div class="prod-gratis">GRATIS</div>
-              <div class="prod-dl-count">⬇ <span id="dl-office">...</span> descargas</div>
+              <div class="prod-dl-count"><span class="dl-icon">⬇</span><span class="dl-num" id="dl-office">—</span><span class="dl-label-top">descargas</span></div>
             </div>
-            <a class="prod-dl" href="https://drive.google.com/file/d/1OmUZef5t7Uqk0TUz80O35XBoUd3bW3Wo/view?usp=sharing" target="_blank" onclick="countDownload('office2024','dl-office')">⬇️ Descargar</a>
           </div>
         </div>
         <div class="prod-card">
@@ -1330,13 +1340,13 @@ async function sendChat() {
               <div class="prod-desc">Software de programación para PLCs Schneider Electric. Ideal para automatización industrial.</div>
               <div class="prod-badge">✓ Disponible ahora</div>
             </div>
+            <a class="prod-dl" href="https://drive.google.com/file/d/1ElYYghDT_AueoHLGkpBkmPhHZKt8CV5b/view?usp=sharing" target="_blank" onclick="countDownload('somachine','dl-somachine')">⬇️ Descargar</a>
           </div>
           <div class="prod-bottom">
-            <div>
+            <div class="prod-gratis-row">
               <div class="prod-gratis">GRATIS</div>
-              <div class="prod-dl-count">⬇ <span id="dl-somachine">...</span> descargas</div>
+              <div class="prod-dl-count"><span class="dl-icon">⬇</span><span class="dl-num" id="dl-somachine">—</span><span class="dl-label-top">descargas</span></div>
             </div>
-            <a class="prod-dl" href="https://drive.google.com/file/d/1ElYYghDT_AueoHLGkpBkmPhHZKt8CV5b/view?usp=sharing" target="_blank" onclick="countDownload('somachine','dl-somachine')">⬇️ Descargar</a>
           </div>
         </div>
       </div>
@@ -1997,38 +2007,70 @@ const observer = new IntersectionObserver((entries) => {
 counters.forEach(c => observer.observe(c));
 </script>
 <script>
-// ── CONTADOR DE DESCARGAS ────────────────────────────────────────
-const dlProducts = [
-  { key: 'filmora',    elId: 'dl-filmora'    },
-  { key: 'lectorpdf',  elId: 'dl-pdf'        },
-  { key: 'office2024', elId: 'dl-office'     },
-  { key: 'somachine',  elId: 'dl-somachine'  },
-];
+// ── CONTADOR DE DESCARGAS — Firebase Realtime Database ───────────
+(function(){
+  const DB_URL = 'https://arq-rbot-default-rtdb.firebaseio.com';
 
-// Carga los contadores actuales al cargar la página (sin incrementar)
-dlProducts.forEach(({ key, elId }) => {
-  fetch(`https://api.counterapi.dev/v1/arqrbot-dl-${key}/count`)
-    .then(r => r.json())
-    .then(d => {
-      const el = document.getElementById(elId);
-      if (el) el.textContent = (d.count || 0).toLocaleString();
-    })
-    .catch(() => {
-      const el = document.getElementById(elId);
-      if (el) el.textContent = '0';
-    });
-});
+  const dlProducts = [
+    { key: 'filmora',    elId: 'dl-filmora'   },
+    { key: 'lectorpdf',  elId: 'dl-pdf'       },
+    { key: 'office2024', elId: 'dl-office'    },
+    { key: 'somachine',  elId: 'dl-somachine' },
+  ];
 
-// Incrementa el contador al hacer clic en Descargar
-function countDownload(key, elId) {
-  fetch(`https://api.counterapi.dev/v1/arqrbot-dl-${key}/up`)
-    .then(r => r.json())
-    .then(d => {
-      const el = document.getElementById(elId);
-      if (el && d.count) el.textContent = d.count.toLocaleString();
-    })
-    .catch(() => {});
-}
+  // Anima el número al llegar el valor real
+  function animateCount(el, target) {
+    const start = parseInt(el.textContent) || 0;
+    if (start === target) { el.textContent = target; return; }
+    const dur   = 600;
+    const steps = 20;
+    const diff  = target - start;
+    let i = 0;
+    const t = setInterval(() => {
+      i++;
+      el.textContent = Math.round(start + diff * (i / steps));
+      if (i >= steps) { el.textContent = target; clearInterval(t); }
+    }, dur / steps);
+  }
+
+  // Carga el contador actual sin incrementar
+  function loadCount({ key, elId }) {
+    fetch(DB_URL + '/descargas/' + key + '.json')
+      .then(r => r.json())
+      .then(data => {
+        const el = document.getElementById(elId);
+        if (!el) return;
+        const count = (data && data.count) ? data.count : 0;
+        animateCount(el, count);
+      })
+      .catch(() => {
+        const el = document.getElementById(elId);
+        if (el) el.textContent = '0';
+      });
+  }
+
+  dlProducts.forEach(loadCount);
+
+  // Expuesta globalmente — se llama al hacer clic en Descargar
+  window.countDownload = function(key, elId) {
+    fetch(DB_URL + '/descargas/' + key + '.json')
+      .then(r => r.json())
+      .then(data => {
+        const current = (data && data.count) ? data.count : 0;
+        const next    = current + 1;
+        return fetch(DB_URL + '/descargas/' + key + '.json', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ count: next })
+        }).then(() => next);
+      })
+      .then(next => {
+        const el = document.getElementById(elId);
+        if (el) animateCount(el, next);
+      })
+      .catch(() => {});
+  };
+})();
 </script>
 
 <script>
