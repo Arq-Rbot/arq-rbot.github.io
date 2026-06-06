@@ -1546,9 +1546,232 @@ async function sendChat() {
       <div class="form-row"><label>Mensaje</label><textarea id="ct-mensaje" placeholder="Cuéntanos sobre tu proyecto..."></textarea></div>
       <button class="form-submit" onclick="enviarFormulario()">💬 Enviar por WhatsApp + Email</button>
       <div id="ct-status" style="margin-top:10px;font-size:13px;text-align:center;"></div>
+
+      <!-- WIDGET FRASES CON IMAGEN Y LIKES -->
+      <div class="frase-widget" id="fraseWidget">
+        <img class="frase-img" id="fraseImg" src="" alt="frase"/>
+        <div class="frase-body">
+          <div class="frase-tag" id="fraseTag">MOTIVACIÓN</div>
+          <div class="frase-text" id="fraseText">"Cargando..."</div>
+          <div class="frase-autor" id="fraseAutor">—</div>
+          <div class="frase-footer">
+            <button class="frase-like-btn" id="fraseLikeBtn" onclick="likeFrase()">
+              <span class="frase-like-icon">🤍</span>
+              <span class="frase-like-num" id="fraseLikeNum">0</span>
+            </button>
+            <div class="frase-dots" id="fraseDots"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
+<style>
+.frase-widget{
+  margin-top:22px;
+  background:#0d0d0d;
+  border:1px solid #1e1e1e;
+  border-radius:12px;
+  overflow:hidden;
+  display:flex;
+  min-height:160px;
+  position:relative;
+}
+.frase-img{
+  width:130px;min-width:130px;
+  object-fit:cover;
+  filter:brightness(.85);
+  transition:opacity .6s ease;
+}
+.frase-body{
+  flex:1;padding:18px 18px 14px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  position:relative;
+}
+.frase-body::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--rojo);
+}
+.frase-tag{
+  font-size:9px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--rojo);font-weight:700;margin-bottom:8px;padding-left:10px;
+  transition:opacity .4s;
+}
+.frase-text{
+  color:#e0e0e0;font-size:13px;line-height:1.65;
+  font-style:italic;padding-left:10px;
+  flex:1;
+  transition:opacity .4s,transform .4s;
+}
+.frase-autor{
+  color:#555;font-size:11px;letter-spacing:.5px;
+  padding-left:10px;margin-top:8px;
+  transition:opacity .4s;
+}
+.frase-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-left:10px;margin-top:12px;
+}
+.frase-like-btn{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.04);
+  border:1px solid #2a2a2a;
+  border-radius:20px;padding:5px 14px;
+  cursor:pointer;transition:border-color .2s,background .2s;
+  color:#fff;
+}
+.frase-like-btn:hover{border-color:var(--rojo);background:rgba(204,34,0,.08);}
+.frase-like-btn.liked{border-color:#e05;background:rgba(220,0,80,.1);}
+.frase-like-icon{font-size:15px;line-height:1;}
+.frase-like-num{font-size:13px;font-weight:700;color:#aaa;font-family:'Barlow Condensed',sans-serif;}
+.frase-like-btn.liked .frase-like-num{color:#ff4488;}
+.frase-dots{display:flex;gap:5px;align-items:center;}
+.frase-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:#2a2a2a;transition:background .3s,transform .3s;cursor:pointer;
+}
+.frase-dot.active{background:var(--rojo);transform:scale(1.3);}
+
+/* fade out/in */
+.frase-widget.out .frase-text,
+.frase-widget.out .frase-autor,
+.frase-widget.out .frase-tag{opacity:0;transform:translateY(8px);}
+.frase-widget.out .frase-img{opacity:0;}
+</style>
+
+<script>
+(function(){
+  const DB_URL = 'https://arq-rbot-default-rtdb.firebaseio.com';
+  const LS_KEY = 'arqrbot-liked-frases';
+
+  const frases = [
+    { tag:'ARQUITECTURA', text:'"La arquitectura es el arte de cómo estar en el lugar."', autor:'— Peter Zumthor', img:'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=300&q=80' },
+    { tag:'MOTIVACIÓN', text:'"El éxito no es el destino, es el camino que recorres cada día con disciplina."', autor:'— Napoleon Hill', img:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&q=80' },
+    { tag:'CONSTRUCCIÓN', text:'"Construir es el acto más noble del ser humano: dejar algo que perdure."', autor:'— ARQ-RBOT', img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=300&q=80' },
+    { tag:'INNOVACIÓN', text:'"La tecnología y el diseño son el puente entre el sueño y la realidad."', autor:'— ARQ-RBOT', img:'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&q=80' },
+    { tag:'CONTIGO', text:'"Tu visión merece el mejor equipo. Aquí estamos, siempre contigo."', autor:'— ARQ-RBOT', img:'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=300&q=80' },
+    { tag:'PERSEVERANCIA', text:'"Cada obstáculo es solo un plano que aún no has terminado de diseñar."', autor:'— ARQ-RBOT', img:'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=300&q=80' },
+    { tag:'DISEÑO', text:'"Un buen diseño es tan importante como los cimientos: sin él, todo se derrumba."', autor:'— ARQ-RBOT', img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&q=80' },
+    { tag:'CRECIMIENTO', text:'"No importa cuán grande sea el sueño, siempre empieza con un primer paso."', autor:'— Martin Luther King', img:'https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=300&q=80' },
+    { tag:'SMART HOME', text:'"El hogar del futuro no es ficción. Lo estamos construyendo hoy, contigo."', autor:'— ARQ-RBOT', img:'https://images.unsplash.com/photo-1558002038-1055907df827?w=300&q=80' },
+    { tag:'EQUIPO', text:'"Los grandes proyectos no los hace una sola persona. Los hace el equipo correcto."', autor:'— ARQ-RBOT', img:'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=300&q=80' },
+    { tag:'INGENIERÍA', text:'"La ingeniería es la poesía de la lógica aplicada al mundo real."', autor:'— ARQ-RBOT', img:'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=300&q=80' },
+    { tag:'FE', text:'"Cree en tu proyecto tanto como crees en ti mismo. Nosotros ya creemos en él."', autor:'— ARQ-RBOT', img:'https://images.unsplash.com/photo-1499810631641-541e76d678a2?w=300&q=80' },
+  ];
+
+  // Mezclar aleatoriamente
+  const shuffled = frases.sort(() => Math.random() - 0.5);
+  let idx = 0;
+  let likedSet = new Set(JSON.parse(localStorage.getItem(LS_KEY) || '[]'));
+  let likesData = {};
+
+  const widget   = document.getElementById('fraseWidget');
+  const imgEl    = document.getElementById('fraseImg');
+  const tagEl    = document.getElementById('fraseTag');
+  const textEl   = document.getElementById('fraseText');
+  const autorEl  = document.getElementById('fraseAutor');
+  const likeBtn  = document.getElementById('fraseLikeBtn');
+  const likeNum  = document.getElementById('fraseLikeNum');
+  const dotsWrap = document.getElementById('fraseDots');
+
+  // Crear dots
+  shuffled.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'frase-dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsWrap.appendChild(d);
+  });
+
+  function getDots(){ return dotsWrap.querySelectorAll('.frase-dot'); }
+
+  function fetchLikes(fraseKey, cb){
+    fetch(DB_URL + '/frase-likes/' + fraseKey + '.json')
+      .then(r => r.json())
+      .then(d => cb((d && d.count) ? d.count : 0))
+      .catch(() => cb(0));
+  }
+
+  function saveLike(fraseKey, count){
+    fetch(DB_URL + '/frase-likes/' + fraseKey + '.json', {
+      method:'PUT',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ count })
+    });
+  }
+
+  function fraseKey(i){ return 'f' + i; }
+
+  function mostrar(i, animate){
+    const f = shuffled[i];
+    const key = fraseKey(i);
+
+    if(animate !== false){
+      widget.classList.add('out');
+      setTimeout(() => aplicar(f, i, key), 450);
+    } else {
+      aplicar(f, i, key);
+    }
+  }
+
+  function aplicar(f, i, key){
+    imgEl.src    = f.img;
+    tagEl.textContent  = f.tag;
+    textEl.textContent = f.text;
+    autorEl.textContent = f.autor;
+
+    // Liked state
+    const liked = likedSet.has(key);
+    likeBtn.classList.toggle('liked', liked);
+    likeBtn.querySelector('.frase-like-icon').textContent = liked ? '❤️' : '🤍';
+
+    // Dots
+    getDots().forEach((d, di) => d.classList.toggle('active', di === i));
+
+    widget.classList.remove('out');
+
+    // Cargar likes
+    likeNum.textContent = likesData[key] !== undefined ? likesData[key] : '…';
+    fetchLikes(key, count => {
+      likesData[key] = count;
+      likeNum.textContent = count;
+    });
+  }
+
+  function goTo(i){
+    idx = i;
+    mostrar(idx, true);
+  }
+
+  window.likeFrase = function(){
+    const key = fraseKey(idx);
+    if(likedSet.has(key)) return; // ya likeó
+    likedSet.add(key);
+    localStorage.setItem(LS_KEY, JSON.stringify([...likedSet]));
+
+    const newCount = (likesData[key] || 0) + 1;
+    likesData[key] = newCount;
+    saveLike(key, newCount);
+
+    likeBtn.classList.add('liked');
+    likeBtn.querySelector('.frase-like-icon').textContent = '❤️';
+    likeNum.textContent = newCount;
+
+    // Animación corazón
+    likeBtn.style.transform = 'scale(1.3)';
+    setTimeout(() => likeBtn.style.transform = 'scale(1)', 200);
+  };
+
+  // Mostrar primera frase
+  mostrar(0, false);
+
+  // Rotar cada 6 segundos
+  setInterval(() => {
+    idx = (idx + 1) % shuffled.length;
+    mostrar(idx, true);
+  }, 6000);
+})();
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
