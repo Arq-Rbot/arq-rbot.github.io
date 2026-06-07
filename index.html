@@ -314,7 +314,17 @@ section{padding:80px 48px;}
 .arch-status{color:#25D366;font-size:11px;display:flex;align-items:center;gap:4px;}
 
 /* PRODUCTOS PUBLICOS */
-.productos-publicos{}
+.productos-publicos{
+  max-height:548px;
+  overflow-y:auto;
+  padding-right:4px;
+  scroll-behavior:smooth;
+}
+.productos-publicos::-webkit-scrollbar{width:4px;}
+.productos-publicos::-webkit-scrollbar-track{background:#111;}
+.productos-publicos::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px;}
+.productos-publicos::-webkit-scrollbar-thumb:hover{background:var(--rojo);}
+.productos-publicos-wrap{position:relative;}
 .prod-card{
   background:#111;border:1px solid #1e1e1e;border-radius:10px;
   padding:20px;margin-bottom:12px;
@@ -691,7 +701,7 @@ footer{
 
 .prog-carousel{
   display:flex;flex-direction:column;gap:0;
-  animation:ruletaSpin 90s linear infinite;
+  animation:ruletaSpin 140s linear infinite;
   will-change:transform;
 }
 .prog-carousel.paused{animation-play-state:paused;}
@@ -1448,6 +1458,12 @@ async function sendChat() {
             <div class="prog-card"><div class="prog-ico">🔧</div><div class="prog-info"><div class="prog-name">3ds Max 2026</div><div class="prog-version">Animación y renders fotorrealistas</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
             <div class="prog-card"><div class="prog-ico">🖥️</div><div class="prog-info"><div class="prog-name">Navisworks 2026</div><div class="prog-version">Coordinación BIM y detección de colisiones</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
             <div class="prog-card"><div class="prog-ico">🔩</div><div class="prog-info"><div class="prog-name">Civil 3D 2026</div><div class="prog-version">Infraestructura y diseño civil</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
+            <div class="prog-card"><div class="prog-ico">🎨</div><div class="prog-info"><div class="prog-name">Activador Adobes Todos</div><div class="prog-version">Activa todos los productos Adobe CC</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">CC</div></div>
+            <div class="prog-card"><div class="prog-ico">🌈</div><div class="prog-info"><div class="prog-name">V-Ray V7.10 para SketchUp</div><div class="prog-version">Render fotorrealista · V-Ray 7.10</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">v7.10</div></div>
+            <div class="prog-card"><div class="prog-ico">📹</div><div class="prog-info"><div class="prog-name">Descargador Video 4K PC</div><div class="prog-version">Descarga videos en 4K desde cualquier web</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">4K</div></div>
+            <div class="prog-card"><div class="prog-ico">📐</div><div class="prog-info"><div class="prog-name">AutoCAD 27</div><div class="prog-version">Diseño 2D/3D · Versión 2027</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">2027</div></div>
+            <div class="prog-card"><div class="prog-ico">🖼️</div><div class="prog-info"><div class="prog-name">Photoshop 26</div><div class="prog-version">Edición de imagen profesional · Adobe</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">v26</div></div>
+            <div class="prog-card"><div class="prog-ico">🎞️</div><div class="prog-info"><div class="prog-name">DaVinci Studio V21.0 Full</div><div class="prog-version">Edición y color grading profesional</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">v21.0</div></div>
           </div>
           <div class="prog-grid" aria-hidden="true">
             <div class="prog-card"><div class="prog-ico">⚙️</div><div class="prog-info"><div class="prog-name">SoMachine Basic V1.6</div><div class="prog-version">Programación PLC Schneider Electric</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">v1.6</div></div>
@@ -1462,6 +1478,12 @@ async function sendChat() {
             <div class="prog-card"><div class="prog-ico">🔧</div><div class="prog-info"><div class="prog-name">3ds Max 2026</div><div class="prog-version">Animación y renders fotorrealistas</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
             <div class="prog-card"><div class="prog-ico">🖥️</div><div class="prog-info"><div class="prog-name">Navisworks 2026</div><div class="prog-version">Coordinación BIM y detección de colisiones</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
             <div class="prog-card"><div class="prog-ico">🔩</div><div class="prog-info"><div class="prog-name">Civil 3D 2026</div><div class="prog-version">Infraestructura y diseño civil</div></div><div class="prog-check no"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="#ff4444" stroke-width="2" stroke-linecap="round"/></svg></div><div class="prog-pronto">PRÓXIMAMENTE</div></div>
+            <div class="prog-card"><div class="prog-ico">🎨</div><div class="prog-info"><div class="prog-name">Activador Adobes Todos</div><div class="prog-version">Activa todos los productos Adobe CC</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">CC</div></div>
+            <div class="prog-card"><div class="prog-ico">🌈</div><div class="prog-info"><div class="prog-name">V-Ray V7.10 para SketchUp</div><div class="prog-version">Render fotorrealista · V-Ray 7.10</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">v7.10</div></div>
+            <div class="prog-card"><div class="prog-ico">📹</div><div class="prog-info"><div class="prog-name">Descargador Video 4K PC</div><div class="prog-version">Descarga videos en 4K desde cualquier web</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">4K</div></div>
+            <div class="prog-card"><div class="prog-ico">📐</div><div class="prog-info"><div class="prog-name">AutoCAD 27</div><div class="prog-version">Diseño 2D/3D · Versión 2027</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">2027</div></div>
+            <div class="prog-card"><div class="prog-ico">🖼️</div><div class="prog-info"><div class="prog-name">Photoshop 26</div><div class="prog-version">Edición de imagen profesional · Adobe</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">v26</div></div>
+            <div class="prog-card"><div class="prog-ico">🎞️</div><div class="prog-info"><div class="prog-name">DaVinci Studio V21.0 Full</div><div class="prog-version">Edición y color grading profesional</div></div><div class="prog-check ok"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="#00BFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="prog-badge">v21.0</div></div>
           </div>
         </div>
       </div>
@@ -1506,6 +1528,7 @@ async function sendChat() {
     <!-- PRODUCTOS PUBLICOS -->
     <div>
       <div class="tienda-col-hdr public">📥 Disponible para descargar</div>
+      <div class="productos-publicos-wrap">
       <div class="productos-publicos">
         <div class="prod-card">
           <div class="prod-top">
@@ -1593,7 +1616,110 @@ async function sendChat() {
             </div>
           </div>
         </div>
+        <div class="prod-card">
+          <div class="prod-top">
+            <div class="prod-ico">🎨</div>
+            <div class="prod-info">
+              <div class="prod-name">Activador Adobes Todos</div>
+              <div class="prod-desc">Activa todos los productos Adobe Creative Cloud. Incluye Photoshop, Illustrator, Premiere y más.</div>
+              <div class="prod-badge">✓ Disponible ahora</div>
+            </div>
+            <a class="prod-dl" href="https://drive.google.com/drive/folders/1eCfeeOwUUNZ8JtRm9tHzDvPJ-AoEU8tz?usp=sharing" target="_blank" onclick="countDownload('activadoradobe','dl-adobe')">⬇️ Descargar</a>
+          </div>
+          <div class="prod-bottom">
+            <div class="prod-gratis-row">
+              <div class="prod-gratis">GRATIS</div>
+              <div class="prod-dl-count"><span class="dl-icon">⬇</span><span class="dl-num" id="dl-adobe">—</span><span class="dl-label-top">descargas</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="prod-card">
+          <div class="prod-top">
+            <div class="prod-ico">🌈</div>
+            <div class="prod-info">
+              <div class="prod-name">V-Ray V7.10 para SketchUp</div>
+              <div class="prod-desc">Render fotorrealista profesional para SketchUp. Versión V-Ray 7.10 completa.</div>
+              <div class="prod-badge">✓ Disponible ahora</div>
+            </div>
+            <a class="prod-dl" href="https://drive.google.com/file/d/1RW_4etsm7mWNnDX3Sq2E7Z7YUL0S7ty9/view?usp=sharing" target="_blank" onclick="countDownload('vray710','dl-vray')">⬇️ Descargar</a>
+          </div>
+          <div class="prod-bottom">
+            <div class="prod-gratis-row">
+              <div class="prod-gratis">GRATIS</div>
+              <div class="prod-dl-count"><span class="dl-icon">⬇</span><span class="dl-num" id="dl-vray">—</span><span class="dl-label-top">descargas</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="prod-card">
+          <div class="prod-top">
+            <div class="prod-ico">📹</div>
+            <div class="prod-info">
+              <div class="prod-name">Descargador Video 4K PC</div>
+              <div class="prod-desc">Descarga videos en resolución 4K desde YouTube y otras plataformas. Para PC.</div>
+              <div class="prod-badge">✓ Disponible ahora</div>
+            </div>
+            <a class="prod-dl" href="https://drive.google.com/drive/folders/1MELEwMifS3EDNHVxVg--A1aoyin8-TUA?usp=sharing" target="_blank" onclick="countDownload('video4k','dl-video4k')">⬇️ Descargar</a>
+          </div>
+          <div class="prod-bottom">
+            <div class="prod-gratis-row">
+              <div class="prod-gratis">GRATIS</div>
+              <div class="prod-dl-count"><span class="dl-icon">⬇</span><span class="dl-num" id="dl-video4k">—</span><span class="dl-label-top">descargas</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="prod-card">
+          <div class="prod-top">
+            <div class="prod-ico">📐</div>
+            <div class="prod-info">
+              <div class="prod-name">AutoCAD 27</div>
+              <div class="prod-desc">Diseño 2D/3D profesional. Versión 2027 completa con todas las herramientas CAD.</div>
+              <div class="prod-badge">✓ Disponible ahora</div>
+            </div>
+            <a class="prod-dl" href="https://drive.google.com/drive/folders/1kAAVD-iiIXu4MbZ3NTJOqWcYXPBR8hve?usp=sharing" target="_blank" onclick="countDownload('autocad27','dl-autocad27')">⬇️ Descargar</a>
+          </div>
+          <div class="prod-bottom">
+            <div class="prod-gratis-row">
+              <div class="prod-gratis">GRATIS</div>
+              <div class="prod-dl-count"><span class="dl-icon">⬇</span><span class="dl-num" id="dl-autocad27">—</span><span class="dl-label-top">descargas</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="prod-card">
+          <div class="prod-top">
+            <div class="prod-ico">🖼️</div>
+            <div class="prod-info">
+              <div class="prod-name">Photoshop 26</div>
+              <div class="prod-desc">Edición de imagen profesional de Adobe. Versión 26 completa con IA generativa.</div>
+              <div class="prod-badge">✓ Disponible ahora</div>
+            </div>
+            <a class="prod-dl" href="https://drive.google.com/drive/folders/1kywa8orY2It8bVKwv6QT4aT7z8hEel9o?usp=sharing" target="_blank" onclick="countDownload('photoshop26','dl-photoshop26')">⬇️ Descargar</a>
+          </div>
+          <div class="prod-bottom">
+            <div class="prod-gratis-row">
+              <div class="prod-gratis">GRATIS</div>
+              <div class="prod-dl-count"><span class="dl-icon">⬇</span><span class="dl-num" id="dl-photoshop26">—</span><span class="dl-label-top">descargas</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="prod-card">
+          <div class="prod-top">
+            <div class="prod-ico">🎞️</div>
+            <div class="prod-info">
+              <div class="prod-name">DaVinci Studio V21.0 Full</div>
+              <div class="prod-desc">Edición de video y color grading profesional. DaVinci Resolve Studio versión 21.0 completa.</div>
+              <div class="prod-badge">✓ Disponible ahora</div>
+            </div>
+            <a class="prod-dl" href="https://1024terabox.com/s/1oPoj6phw4htqUUxo2vGi7g" target="_blank" onclick="countDownload('davinci21','dl-davinci21')">⬇️ Descargar</a>
+          </div>
+          <div class="prod-bottom">
+            <div class="prod-gratis-row">
+              <div class="prod-gratis">GRATIS</div>
+              <div class="prod-dl-count"><span class="dl-icon">⬇</span><span class="dl-num" id="dl-davinci21">—</span><span class="dl-label-top">descargas</span></div>
+            </div>
+          </div>
+        </div>
       </div>
+      </div><!-- /productos-publicos-wrap -->
     </div>
 
   </div>
@@ -2479,11 +2605,17 @@ counters.forEach(c => observer.observe(c));
   const DB_URL = 'https://arq-rbot-default-rtdb.firebaseio.com';
 
   const dlProducts = [
-    { key: 'filmora',    elId: 'dl-filmora'   },
-    { key: 'lectorpdf',  elId: 'dl-pdf'       },
-    { key: 'office2024', elId: 'dl-office'    },
-    { key: 'somachine',    elId: 'dl-somachine' },
-    { key: 'sketchup2026', elId: 'dl-sketchup'  },
+    { key: 'filmora',        elId: 'dl-filmora'    },
+    { key: 'lectorpdf',      elId: 'dl-pdf'        },
+    { key: 'office2024',     elId: 'dl-office'     },
+    { key: 'somachine',      elId: 'dl-somachine'  },
+    { key: 'sketchup2026',   elId: 'dl-sketchup'   },
+    { key: 'activadoradobe', elId: 'dl-adobe'      },
+    { key: 'vray710',        elId: 'dl-vray'       },
+    { key: 'video4k',        elId: 'dl-video4k'    },
+    { key: 'autocad27',      elId: 'dl-autocad27'  },
+    { key: 'photoshop26',    elId: 'dl-photoshop26'},
+    { key: 'davinci21',      elId: 'dl-davinci21'  },
   ];
 
   // Anima el número al llegar el valor real
