@@ -621,6 +621,7 @@ footer{
 .float-dock.open .float-item:nth-child(1) .float-item-label{transition-delay:.05s;}
 .float-dock.open .float-item:nth-child(2) .float-item-label{transition-delay:.1s;}
 .float-dock.open .float-item:nth-child(3) .float-item-label{transition-delay:.15s;}
+.float-dock.open .float-item:nth-child(4) .float-item-label{transition-delay:.2s;}
 
 .float-item-btn{
   width:48px;height:48px;border-radius:50%;
@@ -1041,6 +1042,38 @@ footer{
   color:#fff;
   box-shadow:0 0 18px rgba(204,26,0,0.4);
 }
+.btn-cotizador-hero{
+  background:var(--rojo);
+  color:#fff;
+  border:2px solid var(--rojo);
+  padding:14px 28px;
+  border-radius:4px;
+  font-size:14px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:700;
+  letter-spacing:1px;
+  text-decoration:none;
+  transition:background .2s, box-shadow .2s, transform .15s;
+  text-transform:uppercase;
+  animation:calcGlow 2.6s ease-in-out infinite;
+}
+.btn-cotizador-hero:hover{
+  background:var(--rojo2);
+  border-color:var(--rojo2);
+  box-shadow:0 0 24px rgba(204,34,0,0.6);
+  transform:translateY(-2px);
+}
+@keyframes cotizGlow{
+  0%,100%{box-shadow:0 4px 20px rgba(204,34,0,.6),0 0 0 0 rgba(204,34,0,.3)}
+  50%{box-shadow:0 8px 32px rgba(204,34,0,.9),0 0 0 10px rgba(204,34,0,0)}
+}
+.float-item-btn.cotiz{
+  background:linear-gradient(135deg,#cc2200,#ff3300);
+  animation:cotizGlow 2.4s ease-in-out infinite;
+}
 </style>
 </head>
 <body>
@@ -1311,6 +1344,9 @@ footer{
     
       <a class="btn-calc-hero" href="/calculadora.html">
         ⚡ CALCULADORA KWH
+      </a>
+      <a class="btn-cotizador-hero" href="/cotizador.html">
+        📋 COTIZACIÓN TIEMPO REAL
       </a>
       </div>
   </div>
@@ -2522,6 +2558,11 @@ document.addEventListener('keydown', function(e){
     <a class="float-item" href="/calculadora.html">
       <span class="float-item-label">Calculadora kWh</span>
       <span class="float-item-btn calc">⚡</span>
+    </a>
+
+    <a class="float-item" href="/cotizador.html">
+      <span class="float-item-label">Cotización tiempo real</span>
+      <span class="float-item-btn cotiz">📋</span>
     </a>
 
   </div>
