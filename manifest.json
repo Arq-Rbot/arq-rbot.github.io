@@ -2,7 +2,7 @@
   "name": "ARQ-RBOT ELECTRÓNIC",
   "short_name": "ARQ-RBOT",
   "description": "Cotizador y calculadora eléctrica — ARQ-RBOT",
-  "start_url": "/cotizador.html",
+  "start_url": "/index.html",
   "scope": "/",
   "display": "standalone",
   "background_color": "#0a0a0a",

@@ -36,6 +36,23 @@
   /* ===== APP ===== */
   .app { max-width: 420px; margin: 0 auto; padding-bottom: 3rem; }
 
+  /* ===== DESKTOP LAYOUT ===== */
+  @media (min-width: 900px) {
+    body { padding: 0 24px; }
+    .app { max-width: 1100px; }
+    .header { border-radius: 0 0 12px 12px; margin-bottom: 20px; }
+    .desk-grid {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 0 24px;
+      align-items: start;
+    }
+    .desk-right {
+      position: sticky;
+      top: 90px;
+    }
+  }
+
   /* ===== HEADER ===== */
   .header {
     background: #0d0d0d;
@@ -265,6 +282,8 @@
   </div>
 
   <div class="body">
+    <div class="desk-grid">
+    <div class="desk-left">
     <!-- CLIENTE -->
     <div class="section">
       <div class="sec-title"><i class="ti ti-user"></i> Datos del cliente</div>
@@ -423,14 +442,16 @@
     </div>
 
     <!-- RESUMEN -->
+    </div><!-- end desk-left -->
+    <div class="desk-right">
     <div class="resumen" id="res-box" style="display:none;">
       <div class="sec-title" style="margin-bottom:12px;"><i class="ti ti-receipt"></i> Resumen de cotización</div>
       <div id="det"></div>
       <div class="r-divider"></div>
       <div class="r-viat" id="res-viat-row" style="display:none;">
-        <span>Viáticos</span><span id="res-viat-val">S/ 0</span>
+        <span>Viáticos</span>
       </div>
-      <div class="r-total"><span>TOTAL MANO DE OBRA</span><span id="tot">S/ 0</span></div>
+      <div class="r-total" style="justify-content:center;"><span>Ver total en el PDF ↓</span></div>
       <div class="r-note">* No incluye materiales. Precio referencial.</div>
     </div>
 
@@ -442,6 +463,8 @@
       <i class="ti ti-brand-whatsapp"></i> Enviar por WhatsApp
     </button>
     <p class="nota">* Solo mano de obra. No incluye materiales.</p>
+    </div><!-- end desk-right -->
+    </div><!-- end desk-grid -->
 
     <!-- FOOTER -->
     <div class="footer">
@@ -543,18 +566,18 @@ function calc(){
   box.style.display = 'block';
 
   document.getElementById('det').innerHTML = items.map(i =>
-    '<div class="r-row"><span>' + i.lbl + ' (' + i.qty + ' × S/' + i.pu + ')</span><span>S/ ' + i.sub + '</span></div>'
+    '<div class="r-row"><span>' + i.lbl + '</span><span>× ' + i.qty + '</span></div>'
   ).join('');
 
   const viatRow = document.getElementById('res-viat-row');
   if(viaticosTotal > 0){
     viatRow.style.display = 'flex';
-    document.getElementById('res-viat-val').textContent = 'S/ ' + viaticosTotal;
+    // viat value hidden from resumen
   } else {
     viatRow.style.display = 'none';
   }
 
-  document.getElementById('tot').textContent = 'S/ ' + grandTotal;
+  // total hidden from resumen - shows in PDF only
 }
 
 function chgViat(campo, d){
