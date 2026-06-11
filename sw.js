@@ -1,6 +1,9 @@
-const CACHE = 'arqrbot-kwh-v5';
+const CACHE = 'arqrbot-v6';
 const ASSETS = [
+  '/cotizador.html',
   '/calculadora.html',
+  '/index.html',
+  '/manifest.json',
   '/icons/icon-192.png',
   '/icons/icon-512.png'
 ];
