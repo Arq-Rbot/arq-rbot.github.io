@@ -34,7 +34,7 @@
   }
 
   /* ===== APP ===== */
-  .app { max-width: 420px; margin: 0 auto; padding-bottom: 3rem; }
+  .app { max-width: 100%; width: 100%; margin: 0 auto; padding: 0 1rem 3rem; }
 
   /* ===== DESKTOP LAYOUT ===== */
   @media (min-width: 900px) {
@@ -546,16 +546,16 @@ function calc(){
   let items = []; let total = 0;
   const add = (lbl, qty, pu, sub) => { items.push({lbl, qty, pu, sub}); total += sub; };
 
-  if(document.getElementById('c1').checked){ const n=qtys.q1; add('Puntos eléctricos',n,15,n*15); }
-  if(document.getElementById('c2').checked){ const n=qtys.q2; const p=tipo==='empotrado'?40:25; add('Cajas '+(tipo==='empotrado'?'empotradas':'adosadas'),n,p,n*p); }
-  if(document.getElementById('c3').checked){ const n=qtys.q3; add('Cajas de pase',n,75,n*75); }
+  if(document.getElementById('c1').checked){ const n=qtys.q1; add('Puntos eléctricos (tomacorriente / interruptor) — Cableado y montaje',n,15,n*15); }
+  if(document.getElementById('c2').checked){ const n=qtys.q2; const p=tipo==='empotrado'?40:25; add('Cajas '+(tipo==='empotrado'?'empotradas — Caja c/cemento + tubería':'adosadas — Caja superficie + canaleta'),n,p,n*p); }
+  if(document.getElementById('c3').checked){ const n=qtys.q3; add('Caja de pase — Instalación empotrada',n,75,n*75); }
   if(document.getElementById('c4').checked){ const n=qtys.q4; const p=parseInt(document.getElementById('tab-tipo').value); const lbl=p===75?'Tablero monofásico estándar':'Tablero monofásico grande 12+'; add(lbl,n,p,n*p); }
-  if(document.getElementById('c5').checked){ const n=qtys.q5; add('Llaves térmicas monofásicas',n,27,n*27); }
-  if(document.getElementById('c6').checked){ const n=qtys.q6; add('LED Pixel (ml)',n,32,n*32); }
-  if(document.getElementById('c7').checked){ const n=qtys.q7; add('LED RGB (ml)',n,27,n*27); }
-  if(document.getElementById('c8').checked){ const n=qtys.q8; add('Luminarias colgantes / especiales',n,25,n*25); }
-  if(document.getElementById('c9').checked){ const n=qtys.q9; add('Timer / Temporizador',n,50,n*50); }
-  if(document.getElementById('c10').checked){ const n=qtys.q10; add('Medidor monofásico',n,180,n*180); }
+  if(document.getElementById('c5').checked){ const n=qtys.q5; add('Llave térmica monofásica — Instalación y conexión',n,27,n*27); }
+  if(document.getElementById('c6').checked){ const n=qtys.q6; add('Tira LED Pixel (ml) — Instalación y conexión',n,32,n*32); }
+  if(document.getElementById('c7').checked){ const n=qtys.q7; add('Tira LED RGB (ml) — Instalación por metro lineal',n,27,n*27); }
+  if(document.getElementById('c8').checked){ const n=qtys.q8; add('Luminaria colgante / especial — Araña, pendiente, decorativa',n,25,n*25); }
+  if(document.getElementById('c9').checked){ const n=qtys.q9; add('Timer / Temporizador — Instalación y programación',n,50,n*50); }
+  if(document.getElementById('c10').checked){ const n=qtys.q10; add('Medidor monofásico — Caja + tubo acometida',n,180,n*180); }
 
   itemsCache = items;
   totalMOCache = total;
@@ -864,38 +864,72 @@ function generarPDF(){
         </div>
       </div>
 
+      <!-- CONDICIONES DE PAGO -->
+      <div style="margin-top:24px;display:flex;gap:12px;">
+        <div style="flex:1;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:14px 18px;">
+          <div style="font-size:9px;font-weight:700;color:#15803d;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">💰 Condiciones de pago</div>
+          <div style="font-size:12px;color:#166534;">• <strong>50% adelanto</strong> para inicio de trabajos</div>
+          <div style="font-size:12px;color:#166534;margin-top:4px;">• <strong>50% saldo</strong> al término de la obra</div>
+          <div style="font-size:11px;color:#4ade80;margin-top:6px;">Transferencia / Yape / Plin / Efectivo</div>
+        </div>
+        <div style="flex:1;background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:14px 18px;">
+          <div style="font-size:9px;font-weight:700;color:#1d4ed8;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">⏱ Tiempo estimado</div>
+          <div style="font-size:12px;color:#1e40af;">• Trabajos menores: <strong>1 – 2 días</strong></div>
+          <div style="font-size:12px;color:#1e40af;margin-top:4px;">• Trabajos grandes: <strong>3 – 5 días</strong></div>
+          <div style="font-size:11px;color:#93c5fd;margin-top:6px;">Según alcance y acceso a la obra</div>
+        </div>
+      </div>
+
       <!-- NOTAS -->
-      <div class="notas">
+      <div class="notas" style="margin-top:16px;">
         <h4>Condiciones y observaciones</h4>
         <ul>
-          <li>Los precios corresponden únicamente a mano de obra. Los materiales no están incluidos.</li>
-          <li>El presupuesto tiene una validez de 15 días calendario desde la fecha de emisión.</li>
-          <li>Cualquier trabajo adicional no contemplado en esta cotización será presupuestado por separado.</li>
-          <li>Se garantiza la calidad del trabajo realizado conforme a las normas eléctricas vigentes.</li>
+          <li>Precios corresponden <strong>únicamente a mano de obra</strong>. Los materiales no están incluidos salvo acuerdo.</li>
+          <li>Cotización válida por <strong>15 días calendario</strong> desde la fecha de emisión.</li>
+          <li>Trabajos adicionales no contemplados serán presupuestados por separado antes de ejecutarse.</li>
+          <li>Se garantiza la calidad del trabajo conforme a las <strong>normas eléctricas peruanas vigentes (CNE)</strong>.</li>
+          <li>El cliente debe brindar acceso a la obra en el horario coordinado para no generar retrasos.</li>
         </ul>
       </div>
 
       <!-- FIRMA -->
       <div class="firma-section">
-        <div>
-          <div style="font-size:12px;color:#6b7280;">Para consultas o confirmación:</div>
-          <div style="font-size:14px;font-weight:700;color:#111;margin-top:4px;">📞 +51 932 188 436</div>
-          <div style="font-size:12px;color:#2AB4E6;margin-top:2px;">🌐 arq-rbot-github-io.vercel.app</div>
+        <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:14px 18px;">
+          <div style="font-size:10px;font-weight:700;color:#9ca3af;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Contacto</div>
+          <div style="font-size:14px;font-weight:700;color:#111;margin-bottom:4px;">📞 +51 932 188 436</div>
+          <div style="font-size:12px;color:#2AB4E6;margin-bottom:2px;">🌐 arq-rbot-github-io.vercel.app</div>
+          <div style="font-size:11px;color:#6b7280;">💬 WhatsApp disponible</div>
         </div>
         <div class="firma-box">
-          <div class="firma-linea">ARQ-RBOT ELECTRÓNIC</div>
-          <div class="firma-sub">Técnico electricista responsable</div>
+          <div style="width:180px;height:60px;border-bottom:2px solid #111;margin-bottom:8px;display:flex;align-items:flex-end;justify-content:center;">
+            <span style="font-size:10px;color:#9ca3af;padding-bottom:4px;">Firma / Sello</span>
+          </div>
+          <div style="font-size:13px;font-weight:700;color:#111;">ARQ-RBOT ELECTRÓNIC</div>
+          <div style="font-size:10px;color:#9ca3af;margin-top:2px;">Técnico electricista responsable</div>
+          <div style="font-size:10px;color:#E03A2B;margin-top:2px;">RUC / DNI: _______________</div>
+        </div>
+      </div>
+
+      <!-- ACEPTACIÓN -->
+      <div style="margin-top:28px;background:#fff7f6;border:1.5px dashed #E03A2B;border-radius:10px;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <div style="font-size:10px;font-weight:700;color:#E03A2B;letter-spacing:1px;text-transform:uppercase;">Aceptación del cliente</div>
+          <div style="font-size:11px;color:#6b7280;margin-top:4px;">Al firmar, el cliente acepta los términos y condiciones de esta cotización.</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="width:160px;border-bottom:1.5px solid #374151;padding-top:40px;"></div>
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;">Firma del cliente / Fecha</div>
         </div>
       </div>
     </div>
 
     <!-- FOOTER -->
     <div class="pdf-footer">
-      <span>© ${now.getFullYear()} <strong>ARQ-RBOT ELECTRÓNIC</strong> — Todos los derechos reservados</span>
+      <span>© \${now.getFullYear()} <strong>ARQ-RBOT ELECTRÓNIC</strong> — Todos los derechos reservados</span>
       <a href="https://arq-rbot-github-io.vercel.app/">arq-rbot-github-io.vercel.app</a>
     </div>
   </div>
-  </body></html>`;
+  </body></html>\`;
 
   const win = window.open('', '_blank');
   if(win){
