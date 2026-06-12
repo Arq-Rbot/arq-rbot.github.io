@@ -859,19 +859,21 @@ footer{
   border:1px solid rgba(124,32,255,.35);
   border-top:3px solid #7C20FF;
   border-radius:12px;
-  padding:18px 20px;
-  display:flex;align-items:center;gap:16px;
+  padding:12px 16px;
+  display:flex;align-items:center;gap:12px;
   box-shadow:0 4px 24px rgba(124,32,255,.12);
 }
 .yape-qr{
-  width:84px;height:84px;border-radius:8px;flex-shrink:0;
+  width:60px;height:60px;border-radius:8px;flex-shrink:0;
   background:#fff;display:flex;align-items:center;justify-content:center;
-  overflow:hidden;
+  overflow:visible;cursor:zoom-in;position:relative;
+  transition:transform .25s ease;z-index:1;
 }
+.yape-qr:hover{transform:scale(4);z-index:50;box-shadow:0 8px 30px rgba(0,0,0,.6);}
 .yape-qr img{width:100%;height:100%;object-fit:contain;}
 .yape-info{flex:1;}
-.yape-title{color:#fff;font-size:15px;font-weight:800;margin-bottom:4px;}
-.yape-sub{color:#999;font-size:12px;line-height:1.5;margin-bottom:8px;}
+.yape-title{color:#fff;font-size:13px;font-weight:800;margin-bottom:3px;}
+.yape-sub{color:#999;font-size:11px;line-height:1.4;margin-bottom:6px;}
 .yape-num{
   display:inline-flex;align-items:center;gap:8px;
   background:rgba(124,32,255,.12);border:1px solid rgba(124,32,255,.35);
@@ -2917,7 +2919,7 @@ if('serviceWorker' in navigator){
   function notificarWhatsapp(autor, programa){
     if(WSP_APIKEY === 'TU_APIKEY_AQUI') return; // no configurado aún
     const msg = `📢 Nueva peticion de programa:\n👤 ${autor}\n📦 ${programa}`;
-    fetch(`https://api.callmebot.com/whatsapp.php?phone=${WSP_PHONE}&text=${encodeURIComponent(msg)}&apikey=${WSP_APIKEY}`)
+    fetch(`https://api.callmebot.com/whatsapp.php?phone=${WSP_PHONE}&text=${encodeURIComponent(msg)}&apikey=${WSP_APIKEY}`, { mode: 'no-cors' })
       .catch(()=>{});
   }
 
