@@ -852,6 +852,37 @@ footer{
 .pet-voto-btn.voted{color:var(--rojo);}
 .pet-voto-num{color:#666;font-size:11px;font-weight:700;}
 
+/* ── YAPE / APOYA ESTE PROYECTO ──────────────────────────────── */
+.yape-box{
+  margin-top:16px;
+  background:#0d0d0d;
+  border:1px solid rgba(124,32,255,.35);
+  border-top:3px solid #7C20FF;
+  border-radius:12px;
+  padding:18px 20px;
+  display:flex;align-items:center;gap:16px;
+  box-shadow:0 4px 24px rgba(124,32,255,.12);
+}
+.yape-qr{
+  width:84px;height:84px;border-radius:8px;flex-shrink:0;
+  background:#fff;display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.yape-qr img{width:100%;height:100%;object-fit:contain;}
+.yape-info{flex:1;}
+.yape-title{color:#fff;font-size:15px;font-weight:800;margin-bottom:4px;}
+.yape-sub{color:#999;font-size:12px;line-height:1.5;margin-bottom:8px;}
+.yape-num{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(124,32,255,.12);border:1px solid rgba(124,32,255,.35);
+  color:#b98bff;font-size:13px;font-weight:700;
+  padding:6px 14px;border-radius:8px;letter-spacing:.5px;
+}
+.yape-copy-btn{
+  background:none;border:none;color:#b98bff;cursor:pointer;
+  font-size:12px;text-decoration:underline;margin-left:6px;
+}
+
 
 /* ADMIN PANEL */
 .admin-overlay{
@@ -1557,6 +1588,18 @@ async function sendChat() {
         <!-- LISTA DE PETICIONES -->
         <div class="pet-list" id="petList">
           <div class="pet-empty" id="petEmpty">Sé el primero en pedir un programa ✨</div>
+        </div>
+      </div>
+
+      <!-- YAPE -->
+      <div class="yape-box">
+        <div class="yape-qr">
+          <img src="yape-qr.png" alt="QR Yape" onerror="this.style.display='none'"/>
+        </div>
+        <div class="yape-info">
+          <div class="yape-title">💜 ¿Te sirvió? Apoya este proyecto</div>
+          <div class="yape-sub">Con tu colaboración por Yape ayudas a mantener el servidor activo y seguir agregando más programas gratis para todos.</div>
+          <span class="yape-num">📱 932 188 436 <button class="yape-copy-btn" onclick="navigator.clipboard.writeText('932188436');this.textContent='¡Copiado!'">copiar</button></span>
         </div>
       </div>
     </div>
@@ -2864,6 +2907,20 @@ if('serviceWorker' in navigator){
   const LS_USER  = 'arqrbot-pet-user';
   const LS_VOTED = 'arqrbot-pet-voted';
 
+  // 🟣 WhatsApp automático (CallMeBot) — ver instrucciones abajo
+  // 1. Agrega este número a tus contactos: +34 644 59 71 67
+  // 2. Mándale por WhatsApp: "I allow callmebot to send me messages"
+  // 3. Te responderá con tu API Key (un número). Reemplázalo aquí:
+  const WSP_PHONE  = '51932188436'; // tu número con código de país, sin + ni espacios
+  const WSP_APIKEY = '2044718';
+
+  function notificarWhatsapp(autor, programa){
+    if(WSP_APIKEY === 'TU_APIKEY_AQUI') return; // no configurado aún
+    const msg = `📢 Nueva peticion de programa:\n👤 ${autor}\n📦 ${programa}`;
+    fetch(`https://api.callmebot.com/whatsapp.php?phone=${WSP_PHONE}&text=${encodeURIComponent(msg)}&apikey=${WSP_APIKEY}`)
+      .catch(()=>{});
+  }
+
   let peticiones  = [];
   let currentUser = localStorage.getItem(LS_USER) || '';
   let votedIds    = JSON.parse(localStorage.getItem(LS_VOTED) || '[]');
@@ -2969,7 +3026,7 @@ if('serviceWorker' in navigator){
     const btn = document.querySelector('.pet-send-btn');
     if(btn) btn.disabled = true;
     pushPeticion({ autor: currentUser, programa: prog, ts: Date.now(), votos: 0 })
-      .then(() => { document.getElementById('petPrograma').value=''; fetchPeticiones(); })
+      .then(() => { notificarWhatsapp(currentUser, prog); document.getElementById('petPrograma').value=''; fetchPeticiones(); })
       .catch(() => alert('Error al guardar. Revisa tu conexión.'))
       .finally(() => { if(btn) btn.disabled=false; });
   };
