@@ -2994,5 +2994,23 @@ if('serviceWorker' in navigator){
   setInterval(fetchPeticiones, 30000);
 })();
 </script>
+<!-- Password protection for cotizador -->
+<script>
+document.addEventListener('click', function(e){
+  try{
+    var a = e.target.closest && e.target.closest('a[href$="cotizador.html"]');
+    if(!a) return;
+    e.preventDefault();
+    var pwd = prompt('Ingresa la contraseña para acceder al cotizador:');
+    if(pwd === null) return; // cancel
+    if(pwd === 'arqrbot'){
+      if(a.target === '_blank') window.open(a.href, '_blank');
+      else window.location.href = a.getAttribute('href');
+    } else {
+      alert('Contraseña incorrecta.');
+    }
+  }catch(err){console.error(err)}
+});
+</script>
 </body>
 </html>
