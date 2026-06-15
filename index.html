@@ -2720,6 +2720,7 @@ counters.forEach(c => observer.observe(c));
     { key: 'video4k',        elId: 'dl-video4k'    },
     { key: 'autocad27',      elId: 'dl-autocad27'  },
     { key: 'photoshop26',    elId: 'dl-photoshop26'},
+    { key: 'archicad29',     elId: 'dl-archicad29' },
     { key: 'davinci21',      elId: 'dl-davinci21'  },
   ];
 
@@ -2757,19 +2758,19 @@ counters.forEach(c => observer.observe(c));
   dlProducts.forEach(loadCount);
 
   // Expuesta globalmente — se llama al hacer clic en Descargar
+  // keepalive=true evita que el fetch se cancele cuando se abre nueva pestaña
   window.countDownload = function(key, elId) {
     fetch(DB_URL + '/descargas/' + key + '.json')
       .then(r => r.json())
       .then(data => {
         const current = (data && data.count) ? data.count : 0;
         const next    = current + 1;
-        return fetch(DB_URL + '/descargas/' + key + '.json', {
+        fetch(DB_URL + '/descargas/' + key + '.json', {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ count: next })
-        }).then(() => next);
-      })
-      .then(next => {
+          body: JSON.stringify({ count: next }),
+          keepalive: true
+        }).catch(() => {});
         const el = document.getElementById(elId);
         if (el) animateCount(el, next);
       })
