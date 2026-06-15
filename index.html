@@ -1404,7 +1404,6 @@ footer{
     </div>
 
 <script>
-const GEMINI_KEY = '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';
 const chatHistory = [];
 const systemPrompt = `Eres el asistente virtual de ARQ-RBOT, empresa de arquitectura, robótica y tecnología en Perú.
 Responde SIEMPRE en máximo 2-3 líneas, de forma breve, directa y amigable.
@@ -1433,23 +1432,24 @@ async function sendChat() {
   try {
     chatHistory.push({ role: 'user', content: msg });
 
-    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${GEMINI_KEY}`
+        'x-api-key': '',
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
       },
       body: JSON.stringify({
-        model: 'llama-3.1-8b-instant',
-        messages: [
-          { role: 'system', content: systemPrompt },
-          ...chatHistory
-        ]
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 300,
+        system: systemPrompt,
+        messages: chatHistory
       })
     });
 
     const data = await res.json();
-    const reply = data.choices?.[0]?.message?.content || 'Lo siento, no pude responder. Contáctanos por WhatsApp.';
+    const reply = data.content?.[0]?.text || 'Lo siento, no pude responder. Contáctanos por WhatsApp.';
 
     chatHistory.push({ role: 'assistant', content: reply });
     chatLog.push({ role: 'arqrbot', text: reply, time: new Date().toLocaleString() });
@@ -2245,7 +2245,7 @@ async function sendChat() {
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-emailjs.init('Ix5PV_uiXz_2fGXWw');
+emailjs.init({ publicKey: 'Ix5PV_uiXz_2fGXWw', privateKey: 'sNDrSxVc5v3_HzcW62Hn0' });
 
 function enviarFormulario() {
   const nombre = document.getElementById('ct-nombre').value.trim();
