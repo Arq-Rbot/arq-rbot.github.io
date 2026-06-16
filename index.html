@@ -1432,24 +1432,23 @@ async function sendChat() {
   try {
     chatHistory.push({ role: 'user', content: msg });
 
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': '',
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
+        'Authorization': 'Bearer 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'
       },
       body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 300,
-        system: systemPrompt,
-        messages: chatHistory
+        model: 'llama-3.1-8b-instant',
+        messages: [
+          { role: 'system', content: systemPrompt },
+          ...chatHistory
+        ]
       })
     });
 
     const data = await res.json();
-    const reply = data.content?.[0]?.text || 'Lo siento, no pude responder. Contáctanos por WhatsApp.';
+    const reply = data.choices?.[0]?.message?.content || 'Lo siento, no pude responder. Contáctanos por WhatsApp.';
 
     chatHistory.push({ role: 'assistant', content: reply });
     chatLog.push({ role: 'arqrbot', text: reply, time: new Date().toLocaleString() });
