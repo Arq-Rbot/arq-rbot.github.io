@@ -1802,7 +1802,7 @@ async function sendChat() {
           <div class="prod-bottom">
             <div class="prod-gratis-row">
               <div class="prod-precio">S/3 <span class="prod-precio-alt">· US$3</span></div>
-              <div class="prod-servicio-nota">Servicio de instalación</div>
+              <div class="prod-dl-count"><span class="dl-icon">⬇</span><span class="dl-num" id="dl-autocad27">—</span><span class="dl-label-top">descargas</span></div>
             </div>
           </div>
         </div>
@@ -1836,7 +1836,7 @@ async function sendChat() {
           <div class="prod-bottom">
             <div class="prod-gratis-row">
               <div class="prod-precio">S/3 <span class="prod-precio-alt">· US$3</span></div>
-              <div class="prod-servicio-nota">Servicio de instalación</div>
+              <div class="prod-dl-count"><span class="dl-icon">⬇</span><span class="dl-num" id="dl-archicad29">—</span><span class="dl-label-top">descargas</span></div>
             </div>
           </div>
         </div>
@@ -1853,7 +1853,7 @@ async function sendChat() {
           <div class="prod-bottom">
             <div class="prod-gratis-row">
               <div class="prod-precio">S/3 <span class="prod-precio-alt">· US$3</span></div>
-              <div class="prod-servicio-nota">Servicio de instalación</div>
+              <div class="prod-dl-count"><span class="dl-icon">⬇</span><span class="dl-num" id="dl-revit2027">—</span><span class="dl-label-top">descargas</span></div>
             </div>
           </div>
         </div>
@@ -2776,6 +2776,9 @@ counters.forEach(c => observer.observe(c));
     { key: 'video4k',        elId: 'dl-video4k'    },
     { key: 'photoshop26',    elId: 'dl-photoshop26'},
     { key: 'davinci21',      elId: 'dl-davinci21'  },
+    { key: 'autocad27',      elId: 'dl-autocad27'  },
+    { key: 'archicad29',     elId: 'dl-archicad29' },
+    { key: 'revit2027',      elId: 'dl-revit2027'  },
   ];
 
   // Anima el número al llegar el valor real
