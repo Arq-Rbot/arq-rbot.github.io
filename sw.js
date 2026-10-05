@@ -1,4 +1,4 @@
-const CACHE = 'arqrbot-v8';
+const CACHE = 'arqrbot-v9';
 const ASSETS = [
   '/cotizador.html',
   '/calculadora.html',
